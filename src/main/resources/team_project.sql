@@ -5,7 +5,7 @@ CREATE TABLE IF NOT EXISTS `member` (
   `phone` varchar(45) NOT NULL,
   `address` varchar(60) NOT NULL,
   PRIMARY KEY (`account`)
-)
+);
 
 CREATE TABLE  IF NOT EXISTS `product` (
   `seller_account` varchar(45) NOT NULL,
@@ -17,7 +17,7 @@ CREATE TABLE  IF NOT EXISTS `product` (
   `price` int DEFAULT '0',
   `description` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`seller_account`)
-)
+);
 
 CREATE TABLE IF NOT EXISTS `menu` (
   `name` varchar(45) NOT NULL,
@@ -25,7 +25,7 @@ CREATE TABLE IF NOT EXISTS `menu` (
   `dish2` varchar(45) NOT NULL,
   `dish3` varchar(45) NOT NULL,
   PRIMARY KEY (`name`)
-) 
+);
 
 CREATE TABLE  IF NOT EXISTS `order` (
   `order_id` varchar(45) NOT NULL,
@@ -33,7 +33,7 @@ CREATE TABLE  IF NOT EXISTS `order` (
   `buyer_account` varchar(45) NOT NULL,
   `content` varchar(255) NOT NULL,
   PRIMARY KEY (`order_id`)
-)
+);
 
 
 CREATE TABLE IF NOT EXISTS `ordedrcontent` (
@@ -43,7 +43,7 @@ CREATE TABLE IF NOT EXISTS `ordedrcontent` (
   `item_price` int DEFAULT '0',
   `total_price` int DEFAULT '0',
   PRIMARY KEY (`num_id`)
-) 
+);
 
 
 
