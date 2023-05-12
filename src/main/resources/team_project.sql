@@ -7,7 +7,8 @@ CREATE TABLE IF NOT EXISTS `member` (
   PRIMARY KEY (`account`)
 );
 
-CREATE TABLE  IF NOT EXISTS `product` (
+CREATE TABLE `product` (
+  `hs_code` varchar(255) NOT NULL,
   `seller_account` varchar(45) NOT NULL,
   `type` varchar(45) NOT NULL,
   `name` varchar(45) NOT NULL,
@@ -16,8 +17,8 @@ CREATE TABLE  IF NOT EXISTS `product` (
   `date` varchar(45) NOT NULL,
   `price` int DEFAULT '0',
   `description` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`seller_account`)
-);
+  PRIMARY KEY (`hs_code`)
+) ;
 
 CREATE TABLE IF NOT EXISTS `menu` (
   `name` varchar(45) NOT NULL,

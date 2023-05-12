@@ -8,36 +8,41 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "product")
 public class Product {
-	
-	// 產品編碼
+
+	// 商品編碼
 	@Id
+	@Column(name = "hs_code")
+	private String hs_code;
+
+	// 賣家帳號
+
 	@Column(name = "seller_account")
 	private String seller_account;
-	
+
 	// 種類
 	@Column(name = "type")
 	private String type;
-	
+
 	// 產品名稱
 	@Column(name = "name")
 	private String name;
-	
+
 	// 產地
 	@Column(name = "place")
 	private String place;
-	
+
 	// 數量
 	@Column(name = "number")
 	private int number;
-	
+
 	// 採收日期
 	@Column(name = "date")
 	private String date;
-	
+
 	// 價格
 	@Column(name = "price")
 	private int price;
-	
+
 	// 備註說明
 	@Column(name = "description")
 	private String description;
@@ -46,12 +51,20 @@ public class Product {
 
 	}
 
-	public String getProduct_id() {
+	public String getHs_code() {
+		return hs_code;
+	}
+
+	public void setHs_code(String hs_code) {
+		this.hs_code = hs_code;
+	}
+
+	public String getSeller_account() {
 		return seller_account;
 	}
 
-	public void setProduct_id(String product_id) {
-		this.seller_account = product_id;
+	public void setSeller_account(String seller_account) {
+		this.seller_account = seller_account;
 	}
 
 	public String getType() {
