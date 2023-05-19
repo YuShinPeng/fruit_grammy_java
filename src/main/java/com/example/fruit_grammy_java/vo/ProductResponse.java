@@ -9,6 +9,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ProductResponse {
 
+	private Product product;
+
 	@JsonProperty("product_list")
 	private List<Product> productList;
 
@@ -18,16 +20,71 @@ public class ProductResponse {
 
 	private String place;
 
-	private int number;
-
 	private String date;
 
 	private String description;
 
 	private String message;
 
+	private Integer price;
+
+	private Integer number;
+
+	private List<ProductResponse> searchAllRes;
+
+	private Product getProduct;
+
 	public ProductResponse() {
 
+	}
+
+	public ProductResponse(List<ProductResponse> searchAllRes) {
+		this.searchAllRes = searchAllRes;
+	}
+
+	public ProductResponse(Product getProduct) {
+		super();
+		this.getProduct = getProduct;
+	}
+
+	public Product getGetProduct() {
+		return getProduct;
+	}
+
+	public Integer getPrice() {
+		return price;
+	}
+
+	public void setPrice(Integer price) {
+		this.price = price;
+	}
+
+	public Integer getNumber() {
+		return number;
+	}
+
+	public void setNumber(Integer number) {
+		this.number = number;
+	}
+
+	public void setGetProduct(Product getProduct) {
+		this.getProduct = getProduct;
+	}
+
+	public List<ProductResponse> getSearchAllRes() {
+		return searchAllRes;
+	}
+
+	public void setSearchAllRes(List<ProductResponse> searchAllRes) {
+		this.searchAllRes = searchAllRes;
+	}
+
+	public Product getProduct() {
+		return product;
+	}
+
+	public void setProduct(Product product) {
+		this.product = product;
 	}
 
 	public ProductResponse(String message) {
@@ -71,14 +128,6 @@ public class ProductResponse {
 
 	public void setPlace(String place) {
 		this.place = place;
-	}
-
-	public int getNumber() {
-		return number;
-	}
-
-	public void setNumber(int number) {
-		this.number = number;
 	}
 
 	public String getDate() {

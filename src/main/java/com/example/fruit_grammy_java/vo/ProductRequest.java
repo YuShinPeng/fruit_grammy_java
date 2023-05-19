@@ -8,9 +8,17 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ProductRequest {
-	
+
+	private Product product;
+
 	@JsonProperty("product_list")
 	private List<Product> productList;
+
+	@JsonProperty("hs_code")
+	private String hs_code;
+
+	@JsonProperty("seller_account")
+	private String seller_account;
 
 	private String name;
 
@@ -24,8 +32,42 @@ public class ProductRequest {
 
 	private String description;
 
+	private int price;
+
 	public ProductRequest() {
 
+	}
+
+	public int getPrice() {
+		return price;
+	}
+
+	public void setPrice(int price) {
+		this.price = price;
+	}
+
+	public String getHs_code() {
+		return hs_code;
+	}
+
+	public void setHs_code(String hs_code) {
+		this.hs_code = hs_code;
+	}
+
+	public String getSeller_account() {
+		return seller_account;
+	}
+
+	public void setSeller_account(String seller_account) {
+		this.seller_account = seller_account;
+	}
+
+	public Product getProduct() {
+		return product;
+	}
+
+	public void setProduct(Product product) {
+		this.product = product;
 	}
 
 	public List<Product> getProductList() {
