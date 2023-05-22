@@ -4,7 +4,7 @@ CREATE TABLE IF NOT EXISTS `member` (
   `email` varchar(45) NOT NULL,
   `phone` varchar(45) NOT NULL,
   `address` varchar(60) NOT NULL,
-  PRIMARY KEY (`account`)
+  PRIMARY KEY (`email`)
 );
 
 CREATE TABLE `product` (

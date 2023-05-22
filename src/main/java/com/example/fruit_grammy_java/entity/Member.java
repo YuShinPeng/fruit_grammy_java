@@ -10,7 +10,6 @@ import javax.persistence.Table;
 public class Member {
 	
 	// ±b¸¹
-	@Id
 	@Column(name = "account")
 	private String account;
 	
@@ -18,7 +17,12 @@ public class Member {
 	@Column(name = "password")
 	private String password;
 	
+	// ½T»{±K½X
+	@Column(name = "confirm_password")
+	private String confirm_password;
+	
 	// «H½c
+	@Id
 	@Column(name = "email")
 	private String email;
 	
@@ -73,5 +77,16 @@ public class Member {
 	public void setAddress(String address) {
 		this.address = address;
 	}
+
+	public String getConfirm_password() {
+		return confirm_password;
+	}
+
+	public void setConfirm_password(String confirm_password) {
+		this.confirm_password = confirm_password;
+	}
+
+	
+	
 
 }
