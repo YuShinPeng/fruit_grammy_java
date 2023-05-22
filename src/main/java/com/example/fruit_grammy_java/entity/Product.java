@@ -15,10 +15,6 @@ public class Product {
 	private String hs_code;
 
 	// ½æ®a±b¸¹
-<<<<<<< HEAD
-
-=======
->>>>>>> YuShinPeng1
 	@Column(name = "seller_account")
 	private String seller_account;
 
