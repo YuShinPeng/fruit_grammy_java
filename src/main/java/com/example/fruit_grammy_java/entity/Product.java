@@ -5,44 +5,53 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
+
+@JsonInclude(JsonInclude.Include.NON_NULL)
 @Entity
 @Table(name = "product")
 public class Product {
 
-	// °Ó«~½s½X
+	
 	@Id
 	@Column(name = "hs_code")
 	private String hs_code;
 
-	// ½æ®a±b¸¹
+
+	// ï¿½ï¿½aï¿½bï¿½ï¿½
+
+	// åš™è¸è•­aåš™ç®­åš™è¸è•­
+
+
 	@Column(name = "seller_account")
 	private String seller_account;
 
-	// ºØÃş
+	// åš™è¸è•­åš™è¸è•­
 	@Column(name = "type")
 	private String type;
 
-	// ²£«~¦WºÙ
+	// åš™è¸è•­åš™ç¾¯åš™ç£•åš™è¸è•­
 	@Column(name = "name")
 	private String name;
 
-	// ²£¦a
+	// åš™è¸è•­åš™çª®
 	@Column(name = "place")
 	private String place;
 
-	// ¼Æ¶q
+	// åš™è¤‡é‡
 	@Column(name = "number")
 	private int number;
 
-	// ±Ä¦¬¤é´Á
+	// åš™è¡ä½—è•­åš™è¸è•­åš™ï¿½
 	@Column(name = "date")
 	private String date;
 
-	// »ù®æ
+	// åš™è¸è•­åš™è¸è•­
 	@Column(name = "price")
 	private int price;
 
-	// ³Æµù»¡©ú
+	// åš™è¤‡è››è•­åš™è¸è•­åš™è¸è•­
 	@Column(name = "description")
 	private String description;
 

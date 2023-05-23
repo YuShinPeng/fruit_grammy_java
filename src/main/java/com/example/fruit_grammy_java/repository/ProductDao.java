@@ -13,6 +13,8 @@ public interface ProductDao extends JpaRepository<Product, String> {
 	public List<Product> findByPlace(String place);
 	
 	// ³z¹L«~¦W·j´M
-		public List<Product> findByName(String name);
+	public List<Product> findByName(String name);
+		
+	public List<Product> findByNameContaining(String name);
 
 }

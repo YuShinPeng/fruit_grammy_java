@@ -36,5 +36,10 @@ public class ProductController {
 	public ProductResponse searchPlaceProduct(@RequestBody ProductRequest productReq) {
 		return productService.searchPlaceProduct(productReq.getPlace());
 	}
+	
+	@PostMapping("search_specific_product")
+	public ProductResponse searchSpecificProduct(@RequestBody ProductRequest productReq) {
+		return productService.searchSpecificProduct(productReq.getName());
+	}
 
 }
