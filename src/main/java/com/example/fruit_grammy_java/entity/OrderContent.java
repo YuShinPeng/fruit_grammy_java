@@ -9,7 +9,7 @@ import javax.persistence.Table;
 @Table(name = "ordercontent")
 public class OrderContent {
 	
-	// 編碼
+	// 訂單編碼
 	@Id
 	@Column(name = "num_id")
 	private String num_id;
@@ -20,7 +20,7 @@ public class OrderContent {
 	
 	// 數量
 	@Column(name = "item_number")
-	private String item_number;
+	private int item_number;
 	
 	// 單價
 	@Column(name = "item_price")
@@ -29,6 +29,9 @@ public class OrderContent {
 	// 總價格
 	@Column(name = "total_price")
 	private int total_price;
+	
+	@Column(name = "seller_account")
+	private String seller_account;
 
 	public OrderContent() {
 
@@ -50,11 +53,11 @@ public class OrderContent {
 		this.item_name = item_name;
 	}
 
-	public String getItem_number() {
+	public int getItem_number() {
 		return item_number;
 	}
 
-	public void setItem_number(String item_number) {
+	public void setItem_number(int item_number) {
 		this.item_number = item_number;
 	}
 
@@ -74,4 +77,13 @@ public class OrderContent {
 		this.total_price = total_price;
 	}
 
+	public String getSeller_account() {
+		return seller_account;
+	}
+
+	public void setSeller_account(String seller_account) {
+		this.seller_account = seller_account;
+	}
+
+	
 }
