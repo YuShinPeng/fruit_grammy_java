@@ -19,7 +19,8 @@ public class ProductRequest {
 
 	@JsonProperty("seller_account")
 	private String seller_account;
-
+	
+	@JsonProperty("name")
 	private String name;
 
 	private String type;

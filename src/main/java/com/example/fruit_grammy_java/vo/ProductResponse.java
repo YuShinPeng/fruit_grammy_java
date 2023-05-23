@@ -38,6 +38,12 @@ public class ProductResponse {
 
 	}
 
+	
+
+	
+
+
+
 	public ProductResponse(List<ProductResponse> searchAllRes) {
 		this.searchAllRes = searchAllRes;
 	}

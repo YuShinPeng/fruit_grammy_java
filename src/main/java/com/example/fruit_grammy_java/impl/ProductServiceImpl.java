@@ -182,4 +182,27 @@ public class ProductServiceImpl implements ProductService {
 
 	}
 
+	@Override
+	public ProductResponse searchSpecificProduct(String name) { //上架的搜尋
+		
+		
+		List<Product> searchAllRes = new ArrayList<>();
+
+		if (!StringUtils.hasText(name)) {//如果為null，直接提供全部資料
+			
+			List<Product> allSearchReq = productDao.findAll();
+			return new ProductResponse(allSearchReq,"all info");
+		}
+		
+		List<Product> searchReq = productDao.findByNameContaining(name);
+
+
+		for (Product item : searchReq) {
+			item.setHs_code(null);
+			item.setSeller_account(null);
+			searchAllRes.add(item);
+		}
+		return new ProductResponse(searchAllRes,"specific info");
+	}
+
 }
