@@ -200,8 +200,6 @@ public class ProductServiceImpl implements ProductService {
 		List<Product> searchReq = productDao.findByNameContaining(name);
 
 		for (Product item : searchReq) {
-			item.setHsCode(null);
-			item.setSellerAccount(null);
 			searchAllRes.add(item);
 		}
 		return new ProductResponse(searchAllRes, "specific info");

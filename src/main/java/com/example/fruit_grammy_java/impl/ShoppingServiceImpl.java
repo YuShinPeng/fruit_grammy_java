@@ -99,10 +99,6 @@ public class ShoppingServiceImpl implements ShoppingService {
 			
 
 		}
-
-
-	
-
 		ShoppingList.setItemName(productContext.getName());
 		ShoppingList.setDiscription(productContext.getDescription());
 		ShoppingList.setItemPrice(productContext.getPrice());
