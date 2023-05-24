@@ -53,7 +53,7 @@ public class ShoppingServiceImpl implements ShoppingService {
 		List<ShoppingContent> allList = shoppingContentDao.findAll(); // 確認表內是否已經加入過 叫出全部資料
 		Optional<Product> ProductResult = productDao.findById(productId);
 		Product productContext = ProductResult.get();
-		String ItemID = productContext.getHs_code();
+		String ItemID = productContext.getHsCode();
         if(StringUtils.hasText(shoppingAccount)) {
 		for (ShoppingContent item : allList) {
 			if (item.getItemId().contains(ItemID) && item.getShoppingNumber().contains(shoppingAccount)) {
@@ -106,7 +106,7 @@ public class ShoppingServiceImpl implements ShoppingService {
 		ShoppingList.setItemName(productContext.getName());
 		ShoppingList.setDiscription(productContext.getDescription());
 		ShoppingList.setItemPrice(productContext.getPrice());
-		ShoppingList.setSellAccount(productContext.getSeller_account());
+		ShoppingList.setSellAccount(productContext.getSellerAccount());
 		ShoppingList.setStock(productContext.getNumber());
 //
 		shoppingContentDao.save(ShoppingList);

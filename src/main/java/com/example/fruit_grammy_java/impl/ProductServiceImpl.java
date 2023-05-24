@@ -28,15 +28,16 @@ public class ProductServiceImpl implements ProductService {
 		List<Product> productList = productReq.getProductList();
 
 		for (Product item : productList) {
-			if (!StringUtils.hasText(item.getHs_code())) {
+
+			if (!StringUtils.hasText(item.getHsCode())) {
 				return new ProductResponse("商品編碼不得為空");
 			}
 
-			if (productDao.existsById(item.getHs_code())) {
+			if (productDao.existsById(item.getHsCode())) {
 				return new ProductResponse("此商品已上架");
 			}
 
-			if (!StringUtils.hasText(item.getSeller_account())) {
+			if (!StringUtils.hasText(item.getSellerAccount())) {
 				return new ProductResponse("賣家帳號不得為空");
 			}
 
@@ -56,19 +57,23 @@ public class ProductServiceImpl implements ProductService {
 				return new ProductResponse("數量不得小於或等於0");
 			}
 
+			if (!StringUtils.hasText(item.getDescription())) {
+				return new ProductResponse("商品備註說明不得為空");
+			}
+
 			if (!StringUtils.hasText(item.getDate())) {
 				return new ProductResponse("採收日期不得為空");
 			}
 
-			if (item.getPrice() <= 0) {
-				return new ProductResponse("價格不得小於或等於0");
+			// 檢查日期是否符合格式且具有合法性
+			String date = item.getDate();
+			String regex = "\\d{4}-\\d{2}-\\d{2}";
+			if (!date.matches(regex)) {
+				return new ProductResponse("日期格式錯誤");
 			}
 
-			if (!StringUtils.hasText(item.getDescription())) {
-				return new ProductResponse("商品備註說明不得為空");
-			}
+			// 檢查此日期是否合法性 ex. 4044-04-04 不可能
 		}
-
 		// 新增成功回傳資訊和成功訊息
 		productDao.saveAll(productList);
 		return new ProductResponse(productList, "新增成功");
@@ -77,7 +82,7 @@ public class ProductServiceImpl implements ProductService {
 	// 賣家修改上架商品
 	@Override
 	public ProductResponse updateProduct(ProductRequest productReq) {
-		Optional<Product> findProduct = productDao.findById(productReq.getHs_code());
+		Optional<Product> findProduct = productDao.findById(productReq.getHsCode());
 		if (!findProduct.isPresent()) {
 			return new ProductResponse("此商品不存在");
 		}
@@ -112,6 +117,12 @@ public class ProductServiceImpl implements ProductService {
 		// 修改日期
 		if (StringUtils.hasText(productReq.getDate())) {
 			getProduct.setDate(productReq.getDate());
+			// 檢查日期是否符合格式
+			String date = productReq.getDate();
+			String regex = "\\d{4}-\\d{2}-\\d{2}";
+			if (!date.matches(regex)) {
+				return new ProductResponse("日期格式錯誤");
+			}
 			productDao.save(getProduct);
 		}
 
@@ -127,32 +138,7 @@ public class ProductServiceImpl implements ProductService {
 			productDao.save(getProduct);
 		}
 
-		return new ProductResponse(getProduct);
-	}
-
-	// 賣家搜尋上架商品
-	@Override
-	public ProductResponse searchAddProduct(String name) {
-		List<Product> searchReq = productDao.findByName(name);
-
-		List<ProductResponse> searchAllRes = new ArrayList<>();
-
-		if (!StringUtils.hasText(name)) {
-			return new ProductResponse("搜尋內容不得為空");
-		}
-
-		for (Product item : searchReq) {
-			ProductResponse searchRes = new ProductResponse();
-			searchRes.setPlace(name);
-			searchRes.setDate(item.getDate());
-			searchRes.setType(item.getType());
-			searchRes.setNumber(item.getNumber());
-			searchRes.setPrice(item.getPrice());
-			searchRes.setDescription(item.getDescription());
-			searchAllRes.add(searchRes);
-		}
-		return new ProductResponse(searchAllRes);
-
+		return new ProductResponse("修改成功", getProduct);
 	}
 
 	// 買家搜尋 生產履歷 -- 透過產地搜尋
@@ -183,26 +169,66 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public ProductResponse searchSpecificProduct(String name) { //上架的搜尋
-		
-		
+	public ProductResponse searchSpecificProduct(String name) { // 上架的搜尋
+
 		List<Product> searchAllRes = new ArrayList<>();
 
-		if (!StringUtils.hasText(name)) {//如果為null，直接提供全部資料
-			
+		if (!StringUtils.hasText(name)) {// 如果為null，直接提供全部資料
+
 			List<Product> allSearchReq = productDao.findAll();
-			return new ProductResponse(allSearchReq,"all info");
+			return new ProductResponse(allSearchReq, "all info");
 		}
-		
+
 		List<Product> searchReq = productDao.findByNameContaining(name);
 
-
 		for (Product item : searchReq) {
-			item.setHs_code(null);
-			item.setSeller_account(null);
+			item.setHsCode(null);
+			item.setSellerAccount(null);
 			searchAllRes.add(item);
 		}
-		return new ProductResponse(searchAllRes,"specific info");
+		return new ProductResponse(searchAllRes, "specific info");
+	}
+
+	// 賣家已上架商品
+	@Override
+	public ProductResponse searchSellerProduct(String sellerAccount) {
+		List<Product> searchReq = productDao.findBySellerAccount(sellerAccount);
+
+		List<ProductResponse> searchAllRes = new ArrayList<>();
+
+		for (Product item : searchReq) {
+			ProductResponse searchRes = new ProductResponse();
+			searchRes.setHsCode(item.getHsCode());
+			searchRes.setPlace(item.getPlace());
+			searchRes.setName(item.getName());
+			searchRes.setDate(item.getDate());
+			searchRes.setType(item.getType());
+			searchRes.setNumber(item.getNumber());
+			searchRes.setPrice(item.getPrice());
+			searchRes.setDescription(item.getDescription());
+			searchAllRes.add(searchRes);
+		}
+
+		return new ProductResponse("搜尋結果如下", searchAllRes);
+	}
+
+	// 刪除已上架商品
+	@Override
+	public ProductResponse removeProduct(ProductRequest productReq) {
+		Optional<Product> findProduct = productDao.findById(productReq.getHsCode());
+		if (!findProduct.isPresent()) {
+			return new ProductResponse("此商品不存在");
+		}
+
+		try {
+			Product product = findProduct.get();
+			productDao.delete(product);
+			return new ProductResponse("商品已成功刪除");
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ProductResponse("刪除商品失敗");
+		}
+
 	}
 
 }

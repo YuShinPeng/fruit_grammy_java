@@ -7,7 +7,10 @@ CREATE TABLE IF NOT EXISTS `member` (
   PRIMARY KEY (`email`)
 );
 
-CREATE TABLE IF NOT EXISTS `product` (
+
+
+CREATE TABLE  IF NOT EXISTS `product` (
+
   `hs_code` varchar(255) NOT NULL,
   `seller_account` varchar(45) NOT NULL,
   `type` varchar(45) NOT NULL,
@@ -19,7 +22,11 @@ CREATE TABLE IF NOT EXISTS `product` (
   `description` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`hs_code`)
 
+
 );
+
+
+
 
 
 
@@ -31,6 +38,7 @@ CREATE TABLE IF NOT EXISTS `menu` (
   `dish3` varchar(45) NOT NULL,
   PRIMARY KEY (`name`)
 );
+
 
 
 CREATE TABLE  IF NOT EXISTS `order` (
@@ -50,7 +58,6 @@ CREATE TABLE IF NOT EXISTS `ordedrcontent` (
   `item_price` int DEFAULT '0',
   `total_price` int DEFAULT '0',
   PRIMARY KEY (`num_id`)
-
 );
 
 
@@ -73,6 +80,7 @@ CREATE TABLE IF NOT EXISTS `shopppingcontent` (
   `stock` INT NULL DEFAULT 0,
   PRIMARY KEY (`buyer_shopping_number`)
   );
+
 
 
 

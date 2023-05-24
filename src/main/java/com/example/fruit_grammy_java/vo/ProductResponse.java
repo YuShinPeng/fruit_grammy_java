@@ -14,6 +14,8 @@ public class ProductResponse {
 	@JsonProperty("product_list")
 	private List<Product> productList;
 
+	private String hsCode;
+
 	private String name;
 
 	private String type;
@@ -38,13 +40,27 @@ public class ProductResponse {
 
 	}
 
-	
+	public ProductResponse(String message, Product getProduct) {
+		super();
+		this.message = message;
+		this.getProduct = getProduct;
+	}
 
-	
+	public String getHsCode() {
+		return hsCode;
+	}
 
-
+	public void setHsCode(String hsCode) {
+		this.hsCode = hsCode;
+	}
 
 	public ProductResponse(List<ProductResponse> searchAllRes) {
+		this.searchAllRes = searchAllRes;
+	}
+
+	public ProductResponse(String message, List<ProductResponse> searchAllRes) {
+		super();
+		this.message = message;
 		this.searchAllRes = searchAllRes;
 	}
 

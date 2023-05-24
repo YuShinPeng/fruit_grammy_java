@@ -10,9 +10,12 @@ public interface ProductService {
 
 	// 賣家修改上架商品
 	public ProductResponse updateProduct(ProductRequest productReq);
-	
-	// 賣家搜尋上架商品 -- 品名搜尋
-	public ProductResponse searchAddProduct(String name);
+
+	// 賣家下架商品
+	public ProductResponse removeProduct(ProductRequest productReq);
+
+	// 賣家已上架商品 -- 透過賣家帳號搜尋
+	public ProductResponse searchSellerProduct(String sellerAccount);
 	
 	// 賣家搜尋上架商品 --特定搜尋
 	public ProductResponse searchSpecificProduct(String name);
