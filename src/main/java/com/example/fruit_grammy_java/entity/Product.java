@@ -16,42 +16,33 @@ public class Product {
 	
 	@Id
 	@Column(name = "hs_code")
-	private String hs_code;
+	private String hsCode;
 
 
-	// ��a�b��
 
-	// 嚙踝蕭a嚙箭嚙踝蕭
 
+	// ��a�b��
 
 	@Column(name = "seller_account")
-	private String seller_account;
+	private String sellerAccount;
 
-	// 嚙踝蕭嚙踝蕭
 	@Column(name = "type")
 	private String type;
 
-	// 嚙踝蕭嚙羯嚙磕嚙踝蕭
 	@Column(name = "name")
 	private String name;
-
-	// 嚙踝蕭嚙窮
 	@Column(name = "place")
 	private String place;
 
-	// 嚙複量
 	@Column(name = "number")
 	private int number;
 
-	// 嚙衝佗蕭嚙踝蕭嚙�
 	@Column(name = "date")
 	private String date;
 
-	// 嚙踝蕭嚙踝蕭
 	@Column(name = "price")
 	private int price;
 
-	// 嚙複蛛蕭嚙踝蕭嚙踝蕭
 	@Column(name = "description")
 	private String description;
 
@@ -59,20 +50,20 @@ public class Product {
 
 	}
 
-	public String getHs_code() {
-		return hs_code;
+	public String getHsCode() {
+		return hsCode;
 	}
 
-	public void setHs_code(String hs_code) {
-		this.hs_code = hs_code;
+	public void setHsCode(String hsCode) {
+		this.hsCode = hsCode;
 	}
 
-	public String getSeller_account() {
-		return seller_account;
+	public String getSellerAccount() {
+		return sellerAccount;
 	}
 
-	public void setSeller_account(String seller_account) {
-		this.seller_account = seller_account;
+	public void setSellerAccount(String sellerAccount) {
+		this.sellerAccount = sellerAccount;
 	}
 
 	public String getType() {
