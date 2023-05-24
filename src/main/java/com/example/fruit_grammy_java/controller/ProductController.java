@@ -21,20 +21,25 @@ public class ProductController {
 	public ProductResponse addProduct(@RequestBody ProductRequest productReq) {
 		return productService.addProduct(productReq);
 	}
-	
+
 	@PostMapping("update_product")
 	public ProductResponse updateProduct(@RequestBody ProductRequest productReq) {
 		return productService.updateProduct(productReq);
 	}
-	
-	@PostMapping("search_sell_product")
-	public ProductResponse searchAddProduct(@RequestBody ProductRequest productReq) {
-		return productService.searchAddProduct(productReq.getName());
+
+	@PostMapping("remove_seller_product")
+	public ProductResponse removeProduct(@RequestBody ProductRequest productReq) {
+		return productService.removeProduct(productReq);
 	}
 
 	@PostMapping("search_product")
 	public ProductResponse searchPlaceProduct(@RequestBody ProductRequest productReq) {
 		return productService.searchPlaceProduct(productReq.getPlace());
+	}
+
+	@PostMapping("search_seller_product")
+	public ProductResponse searchSellerProduct(@RequestBody ProductRequest productReq) {
+		return productService.searchSellerProduct(productReq.getSellerAccount());
 	}
 
 }

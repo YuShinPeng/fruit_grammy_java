@@ -12,15 +12,12 @@ public class Product {
 	// 商品編碼
 	@Id
 	@Column(name = "hs_code")
-	private String hs_code;
+	private String hsCode;
 
 	// 賣家帳號
-<<<<<<< HEAD
 
-=======
->>>>>>> YuShinPeng1
 	@Column(name = "seller_account")
-	private String seller_account;
+	private String sellerAccount;
 
 	// 種類
 	@Column(name = "type")
@@ -54,20 +51,20 @@ public class Product {
 
 	}
 
-	public String getHs_code() {
-		return hs_code;
+	public String getHsCode() {
+		return hsCode;
 	}
 
-	public void setHs_code(String hs_code) {
-		this.hs_code = hs_code;
+	public void setHsCode(String hsCode) {
+		this.hsCode = hsCode;
 	}
 
-	public String getSeller_account() {
-		return seller_account;
+	public String getSellerAccount() {
+		return sellerAccount;
 	}
 
-	public void setSeller_account(String seller_account) {
-		this.seller_account = seller_account;
+	public void setSellerAccount(String sellerAccount) {
+		this.sellerAccount = sellerAccount;
 	}
 
 	public String getType() {

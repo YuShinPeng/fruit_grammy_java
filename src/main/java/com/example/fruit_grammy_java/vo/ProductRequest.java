@@ -15,10 +15,10 @@ public class ProductRequest {
 	private List<Product> productList;
 
 	@JsonProperty("hs_code")
-	private String hs_code;
+	private String hsCode;
 
 	@JsonProperty("seller_account")
-	private String seller_account;
+	private String sellerAccount;
 
 	private String name;
 
@@ -38,30 +38,6 @@ public class ProductRequest {
 
 	}
 
-	public int getPrice() {
-		return price;
-	}
-
-	public void setPrice(int price) {
-		this.price = price;
-	}
-
-	public String getHs_code() {
-		return hs_code;
-	}
-
-	public void setHs_code(String hs_code) {
-		this.hs_code = hs_code;
-	}
-
-	public String getSeller_account() {
-		return seller_account;
-	}
-
-	public void setSeller_account(String seller_account) {
-		this.seller_account = seller_account;
-	}
-
 	public Product getProduct() {
 		return product;
 	}
@@ -76,6 +52,22 @@ public class ProductRequest {
 
 	public void setProductList(List<Product> productList) {
 		this.productList = productList;
+	}
+
+	public String getHsCode() {
+		return hsCode;
+	}
+
+	public void setHsCode(String hsCode) {
+		this.hsCode = hsCode;
+	}
+
+	public String getSellerAccount() {
+		return sellerAccount;
+	}
+
+	public void setSellerAccount(String sellerAccount) {
+		this.sellerAccount = sellerAccount;
 	}
 
 	public String getName() {
@@ -124,6 +116,14 @@ public class ProductRequest {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public int getPrice() {
+		return price;
+	}
+
+	public void setPrice(int price) {
+		this.price = price;
 	}
 
 }

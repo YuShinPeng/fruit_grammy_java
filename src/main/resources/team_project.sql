@@ -7,7 +7,7 @@ CREATE TABLE IF NOT EXISTS `member` (
   PRIMARY KEY (`account`)
 );
 
-CREATE TABLE `product` (
+CREATE TABLE  IF NOT EXISTS `product` (
   `hs_code` varchar(255) NOT NULL,
   `seller_account` varchar(45) NOT NULL,
   `type` varchar(45) NOT NULL,
@@ -19,10 +19,7 @@ CREATE TABLE `product` (
   `description` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`hs_code`)
 ) ;
-<<<<<<< HEAD
-=======
 
->>>>>>> YuShinPeng1
 
 CREATE TABLE IF NOT EXISTS `menu` (
   `name` varchar(45) NOT NULL,
@@ -30,11 +27,8 @@ CREATE TABLE IF NOT EXISTS `menu` (
   `dish2` varchar(45) NOT NULL,
   `dish3` varchar(45) NOT NULL,
   PRIMARY KEY (`name`)
-<<<<<<< HEAD
-);
-=======
 ) ;
->>>>>>> YuShinPeng1
+
 
 CREATE TABLE  IF NOT EXISTS `order` (
   `order_id` varchar(45) NOT NULL,
@@ -52,11 +46,9 @@ CREATE TABLE IF NOT EXISTS `ordedrcontent` (
   `item_price` int DEFAULT '0',
   `total_price` int DEFAULT '0',
   PRIMARY KEY (`num_id`)
-<<<<<<< HEAD
-);
-=======
+
 ) ;
->>>>>>> YuShinPeng1
+
 
 
 

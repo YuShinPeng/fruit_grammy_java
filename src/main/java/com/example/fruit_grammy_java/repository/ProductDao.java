@@ -12,7 +12,9 @@ public interface ProductDao extends JpaRepository<Product, String> {
 	// 透過產地搜尋
 	public List<Product> findByPlace(String place);
 	
-	// 透過品名搜尋
-		public List<Product> findByName(String name);
+	// 賣家已上架商品
+	public List<Product> findBySellerAccount(String sellerAccount);
+	
+	
 
 }
