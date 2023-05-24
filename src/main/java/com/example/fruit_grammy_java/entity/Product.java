@@ -21,7 +21,7 @@ public class Product {
 
 
 
-	// ½æ®a±b¸¹
+
 
 	@Column(name = "seller_account")
 	private String sellerAccount;

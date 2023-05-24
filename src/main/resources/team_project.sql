@@ -55,21 +55,21 @@ CREATE TABLE IF NOT EXISTS `ordercontent` (
 
 CREATE TABLE IF NOT EXISTS `shopping` (
   `buyer_account` varchar(45) NOT NULL,
-  `buyer_content` varchar(45) NOT NULL,
+  `buyer_content` varchar(1000) NOT NULL,
   PRIMARY KEY (`buyer_account`)
 );
 
 CREATE TABLE IF NOT EXISTS `shopppingcontent` (
-  `buyer_shopping_number` INT NOT NULL,
-  `item_id` VARCHAR(45) NOT NULL,
-  `item_name` VARCHAR(45) NOT NULL,
-  `sell_account` VARCHAR(45) NOT NULL,
-  `per_price` INT NULL DEFAULT 0,
-  `item_num` INT NULL DEFAULT 0,
-  `discription` VARCHAR(255) NULL,
-  `stock` INT NULL DEFAULT 0,
+  `buyer_shopping_number` varchar(255) NOT NULL,
+  `item_id` varchar(45) NOT NULL,
+  `item_name` varchar(45) DEFAULT NULL,
+  `sell_account` varchar(45) DEFAULT NULL,
+  `per_price` int DEFAULT '0',
+  `item_num` int DEFAULT '0',
+  `discription` varchar(255) DEFAULT NULL,
+  `stock` int DEFAULT '0',
   PRIMARY KEY (`buyer_shopping_number`)
-  );
+);
 
 
 

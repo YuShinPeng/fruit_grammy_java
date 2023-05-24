@@ -43,14 +43,7 @@ public class ShoppingServiceImpl implements ShoppingService {
 		
 		String productId = req.getProduct();// 請求產品編碼
 		String shoppingAccount = req.getBuyerAccount(); // 請求賣家帳號
-
-		// 基本資料
-		if (!StringUtils.hasText(shoppingAccount) && !StringUtils.hasText(productId)) {
-			return new ShoppingResponse("錯誤!無基本資訊");
-		}
 		
-	
-
 		List<ShoppingContent> allList = shoppingContentDao.findAll(); // 確認表內是否已經加入過 叫出全部資料
 		Optional<Product> ProductResult = productDao.findById(productId);
 		Product productContext = ProductResult.get();
@@ -62,6 +55,12 @@ public class ShoppingServiceImpl implements ShoppingService {
 			}
 		}}
 
+		// 基本資料
+		if (!StringUtils.hasText(shoppingAccount) && !StringUtils.hasText(productId)) {
+			return new ShoppingResponse("錯誤!無基本資訊");
+		}
+		
+	
 		Optional<Shopping> ShoppingResult = shoppingDao.findById(shoppingAccount);
 		if (!ShoppingResult.isPresent()) {
 			shoppingBasic.setBuyerAccount(shoppingAccount);
@@ -75,6 +74,8 @@ public class ShoppingServiceImpl implements ShoppingService {
 			shoppingContentDao.save(ShoppingList);
 
 		}
+		
+		
 
 		String updateContent = "";
 		Shopping alreadyChart = null;
