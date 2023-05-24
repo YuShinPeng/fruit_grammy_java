@@ -198,8 +198,7 @@ public class ProductServiceImpl implements ProductService {
 
 
 		for (Product item : searchReq) {
-			item.setHs_code(null);
-			item.setSeller_account(null);
+
 			searchAllRes.add(item);
 		}
 		return new ProductResponse(searchAllRes,"specific info");

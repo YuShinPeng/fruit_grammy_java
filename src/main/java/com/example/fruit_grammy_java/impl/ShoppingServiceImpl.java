@@ -1,6 +1,7 @@
 package com.example.fruit_grammy_java.impl;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -77,15 +78,31 @@ public class ShoppingServiceImpl implements ShoppingService {
 
 		String updateContent = "";
 		Shopping alreadyChart = null;
+		
+		//如果已經存在資料，拉出既有資料做往上加
 		if (ShoppingResult.isPresent()) {
 
 			alreadyChart = ShoppingResult.get();
-			String[] ChartArr = alreadyChart.getBuyerContent().split(",");
-			int ArrLong = ChartArr.length;
-			String[] numStr = ChartArr[0].split("_");
 			
-			int orderNum = Integer.valueOf(numStr[1]);
-            String  orderStr =String.valueOf(orderNum+1);
+			String[] ChartArr = alreadyChart.getBuyerContent().split(",");
+		    if(ChartArr.length>=5) {
+		    	return new ShoppingResponse("新增超過五筆，請先結帳，或刪除購物車");
+		    }
+			
+			List<Integer> intArr = new ArrayList<>();// collection
+		
+		
+		
+			for(int i=0;i<ChartArr.length;i++) {
+				String[] numStr = ChartArr[i].split("_");
+				int orderNum = Integer.valueOf(numStr[1]);
+				intArr.add(orderNum);
+			}
+			
+//			Collections.sort(intArr); //ASC
+			Collections.sort(intArr,Collections.reverseOrder());  //DSEC
+			
+            String  orderStr =String.valueOf(intArr.get(0)+1);
 			updateContent = shoppingAccount + "_00" + orderStr + "," + alreadyChart.getBuyerContent();
 			nextInfo =  (shoppingAccount + "_00" + orderStr);// 新的一筆資料
 			alreadyChart.setBuyerContent(updateContent);
@@ -151,54 +168,45 @@ public class ShoppingServiceImpl implements ShoppingService {
 			Optional<Shopping> ShoppingResult = shoppingDao.findById(userAccount);
 			Shopping getShoppingResult = ShoppingResult.get();
 			String[] shoppingOredrArr = getShoppingResult.getBuyerContent().split(",");
-			List<String> result = new ArrayList<>();// collection
+			
             if(shoppingOredrArr.length==1) {
             	 shoppingDao.deleteById(userAccount);
              }
-			
-			
+            List<String> resultArr = new ArrayList<>();// collection
+		
+			String textSet="";
 			for (int i = 0; i < shoppingOredrArr.length; i++) {
 
 				String item = shoppingOredrArr[i];
 				if (shoppingOredrArr[i].equals(shoppingCode)) {
 					continue;
-				} 
+				}
+				resultArr.add(item);}
+				
 					
 //					if(i==shoppingOredrArr.length-1 && shoppingOredrArr.length>=2) {
 //						stringShoppningCode += item;
 //					}
-				stringShoppningCode += item+",";
+			
+			for(int i = 0; i < resultArr.size(); i++) {
+				String item= resultArr.get(i);
+			
+				if(i==resultArr.size()-1) {
+					textSet = item+textSet; 
+				}else {
+					textSet = textSet+","+item;}
 				
 
-				getShoppingResult.setBuyerContent(stringShoppningCode);
-				shoppingDao.save(getShoppingResult);
-
-			}
+				   getShoppingResult.setBuyerContent(textSet);
+				   shoppingDao.save(getShoppingResult);
+				   }
 		}
+	
 
 		return new ShoppingResponse("刪除完成");
 
 	}
-//			if(i==shoppingOredrArr.length-1) {
-//				stringShoppningCode=shoppingOredrArr[i]+stringShoppningCode;
-//				}
-//               
-//				else {
-//				
-//				stringShoppningCode=","+shoppingOredrArr[i]+stringShoppningCode;}
-//				getShoppingResult.setBuyerContent(stringShoppningCode);
 
-	// 確認是否只有一筆 就不要，
-//				String textrefresh="";
-//				String[] concern=getShoppingResult.getBuyerContent().split(",");
-//				if(concern.length==1) {
-//					for(String item :concern) {
-//						textrefresh=getShoppingResult.getBuyerAccount()+"_001"+textrefresh;
-//						getShoppingResult.setBuyerContent(textrefresh);
-//						break;
-//					}
-//					
-//				}
 
 	@Override
 	public ShoppingResponse modiData(ShoppingRequest req) {
@@ -210,6 +218,23 @@ public class ShoppingServiceImpl implements ShoppingService {
 	public ShoppingResponse deleteData(ShoppingRequest req) {
 
 		return updateOrDelete(req, false);
+	}
+	//======================================================
+	@Override
+	public ShoppingResponse getShoppingData(ShoppingRequest req) {
+		List<ShoppingContent> userAllList=new ArrayList<>();
+		
+		String userAccount=req.getBuyerAccount();
+		if (!StringUtils.hasText(userAccount)) {
+			return new ShoppingResponse("無使用者之權限_無讀取到值");
+			
+		}
+		
+		userAllList = shoppingContentDao.findByShoppingNumberContaining(userAccount);
+		if(userAllList.size()<=0) {
+			return new ShoppingResponse("歡迎到瀏覽搜尋選購~");
+		}
+		return new ShoppingResponse("購物車有選購商品請確認",userAllList);
 	}
 
 }

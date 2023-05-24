@@ -10,6 +10,6 @@ import com.example.fruit_grammy_java.entity.ShoppingContent;
 public interface ShoppingContentDao extends JpaRepository<ShoppingContent,String> {
 	
 	
-	public ShoppingContent findByItemId(String itemId);
+	public List<ShoppingContent> findByShoppingNumberContaining(String shoppingNumber);
 
 }
