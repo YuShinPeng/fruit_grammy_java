@@ -1,6 +1,7 @@
 CREATE TABLE IF NOT EXISTS `member` (
   `account` varchar(45) NOT NULL,
   `password` varchar(45) NOT NULL,
+  `confirm_password` varchar(45) NOT NULL,
   `email` varchar(45) NOT NULL,
   `phone` varchar(45) NOT NULL,
   `address` varchar(60) NOT NULL,
@@ -8,9 +9,7 @@ CREATE TABLE IF NOT EXISTS `member` (
 );
 
 
-
 CREATE TABLE  IF NOT EXISTS `product` (
-
   `hs_code` varchar(255) NOT NULL,
   `seller_account` varchar(45) NOT NULL,
   `type` varchar(45) NOT NULL,
@@ -21,15 +20,7 @@ CREATE TABLE  IF NOT EXISTS `product` (
   `price` int DEFAULT '0',
   `description` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`hs_code`)
-
-
 );
-
-
-
-
-
-
 
 CREATE TABLE IF NOT EXISTS `menu` (
   `name` varchar(45) NOT NULL,
@@ -47,7 +38,6 @@ CREATE TABLE  IF NOT EXISTS `order` (
   `buyer_account` varchar(45) NOT NULL,
   `content` varchar(255) NOT NULL,
   PRIMARY KEY (`order_id`)
-
  );
 
 
@@ -60,10 +50,7 @@ CREATE TABLE IF NOT EXISTS `ordedrcontent` (
   PRIMARY KEY (`num_id`)
 );
 
-
-
-
-CREATE TABLE IF NOT EXISTS  `shopping` (
+CREATE TABLE IF NOT EXISTS `shopping` (
   `buyer_account` varchar(45) NOT NULL,
   `buyer_content` varchar(45) NOT NULL,
   PRIMARY KEY (`buyer_account`)
@@ -79,8 +66,7 @@ CREATE TABLE IF NOT EXISTS `shopppingcontent` (
   `discription` VARCHAR(255) NULL,
   `stock` INT NULL DEFAULT 0,
   PRIMARY KEY (`buyer_shopping_number`)
-  );
-
+ );
 
 
 

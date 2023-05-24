@@ -1,7 +1,6 @@
 package com.example.fruit_grammy_java.ifs;
 
 
-import com.example.fruit_grammy_java.vo.ProductRequest;
 import com.example.fruit_grammy_java.vo.ShoppingRequest;
 import com.example.fruit_grammy_java.vo.ShoppingResponse;
 

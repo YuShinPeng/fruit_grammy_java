@@ -17,10 +17,7 @@ public class Product {
 	@Id
 	@Column(name = "hs_code")
 	private String hsCode;
-
-
-
-
+	
 	// ½æ®a±b¸¹
 
 	@Column(name = "seller_account")
