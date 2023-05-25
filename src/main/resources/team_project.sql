@@ -8,9 +8,6 @@ CREATE TABLE IF NOT EXISTS `member` (
   PRIMARY KEY (`email`)
 );
 
-<<<<<<< HEAD
-CREATE TABLE  IF NOT EXISTS `product` (
-=======
 CREATE TABLE IF NOT EXISTS `product` (
 >>>>>>> refs/heads/Tsai2
   `hs_code` varchar(255) NOT NULL,
@@ -72,7 +69,6 @@ CREATE TABLE IF NOT EXISTS `shopppingcontent` (
   `discription` varchar(255) DEFAULT NULL,
   `stock` int DEFAULT '0',
   PRIMARY KEY (`buyer_shopping_number`)
-
 );
 
 CREATE TABLE IF NOT EXISTS `dishlist` (
