@@ -12,7 +12,7 @@ CREATE TABLE  IF NOT EXISTS `product` (
   `type` varchar(45) NOT NULL,
   `name` varchar(45) NOT NULL,
   `place` varchar(45) NOT NULL,
-  `number` int DEFAULT '0',
+--  `number` int DEFAULT '0',
   `date` varchar(45) NOT NULL,
   `price` int DEFAULT '0',
   `description` varchar(255) DEFAULT NULL,
@@ -35,7 +35,6 @@ CREATE TABLE  IF NOT EXISTS `order` (
   PRIMARY KEY (`order_id`)
 );
 
-
 CREATE TABLE IF NOT EXISTS `ordedrcontent` (
   `num_id` varchar(45) NOT NULL,
   `item_name` varchar(45) NOT NULL,
@@ -43,6 +42,13 @@ CREATE TABLE IF NOT EXISTS `ordedrcontent` (
   `item_price` int DEFAULT '0',
   `total_price` int DEFAULT '0',
   PRIMARY KEY (`num_id`)
+);
+
+CREATE TABLE IF NOT EXISTS `dishlist` (
+  `name` varchar(45) NOT NULL,
+  `needed` varchar(300) NOT NULL,
+  `cooking` varchar(1000) NOT NULL,
+  PRIMARY KEY (`name`)
 );
 
 
