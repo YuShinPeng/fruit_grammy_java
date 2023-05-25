@@ -9,4 +9,10 @@ public interface OrderService {
 	public OrderResponse addOrder(OrderRequest orderRequest);
 	
 	public OrderResponse doneOrder(OrderRequest orderRequest);
+
+	public OrderResponse shippedOrder(OrderRequest orderRequest);
+
+	public OrderResponse allOrder(OrderRequest orderRequest);
+
+	public OrderResponse buyerOrder(OrderRequest orderRequest);
 }

@@ -1,18 +1,12 @@
 CREATE TABLE IF NOT EXISTS `member` (
   `account` varchar(45) NOT NULL,
   `password` varchar(45) NOT NULL,
+  `confirm_password` varchar(45) NOT NULL,
   `email` varchar(45) NOT NULL,
   `phone` varchar(45) NOT NULL,
   `address` varchar(60) NOT NULL,
-<<<<<<< HEAD
   PRIMARY KEY (`email`)
 );
-
-
-=======
-  PRIMARY KEY (`account`)
-);
->>>>>>> Tung
 
 CREATE TABLE  IF NOT EXISTS `product` (
 
@@ -25,21 +19,8 @@ CREATE TABLE  IF NOT EXISTS `product` (
   `date` varchar(45) NOT NULL,
   `price` int DEFAULT '0',
   `description` varchar(255) DEFAULT NULL,
-<<<<<<< HEAD
   PRIMARY KEY (`hs_code`)
-
-
 );
-
-
-
-
-
-
-=======
-  PRIMARY KEY (`seller_account`)
-);
->>>>>>> Tung
 
 CREATE TABLE IF NOT EXISTS `menu` (
   `name` varchar(45) NOT NULL,
@@ -48,11 +29,6 @@ CREATE TABLE IF NOT EXISTS `menu` (
   `dish3` varchar(45) NOT NULL,
   PRIMARY KEY (`name`)
 );
-<<<<<<< HEAD
-
-
-=======
->>>>>>> Tung
 
 CREATE TABLE IF NOT EXISTS `orderform` (
   `order_id` varchar(45) NOT NULL,
@@ -63,12 +39,8 @@ CREATE TABLE IF NOT EXISTS `orderform` (
   `content` varchar(255) NOT NULL,
   `order_condition` varchar(45) NOT NULL,
   PRIMARY KEY (`order_id`)
-<<<<<<< HEAD
-
- );
-=======
 );
->>>>>>> Tung
+
 
 
 CREATE TABLE IF NOT EXISTS `ordercontent` (
@@ -80,9 +52,6 @@ CREATE TABLE IF NOT EXISTS `ordercontent` (
   `seller_account` varchar(45),
   PRIMARY KEY (`num_id`)
 );
-<<<<<<< HEAD
-
-
 
 
 CREATE TABLE IF NOT EXISTS  `shopping` (
@@ -103,9 +72,6 @@ CREATE TABLE IF NOT EXISTS `shopppingcontent` (
   PRIMARY KEY (`buyer_shopping_number`)
   );
 
-
-=======
->>>>>>> Tung
 
 
 
