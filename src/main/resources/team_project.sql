@@ -1,13 +1,14 @@
 CREATE TABLE IF NOT EXISTS `member` (
   `account` varchar(45) NOT NULL,
   `password` varchar(45) NOT NULL,
+  `confirm_password` varchar(45) NOT NULL,
   `email` varchar(45) NOT NULL,
   `phone` varchar(45) NOT NULL,
   `address` varchar(60) NOT NULL,
   PRIMARY KEY (`email`)
 );
 
-CREATE TABLE `product` (
+CREATE TABLE IF NOT EXISTS `product` (
   `hs_code` varchar(255) NOT NULL,
   `seller_account` varchar(45) NOT NULL,
   `type` varchar(45) NOT NULL,
