@@ -15,7 +15,7 @@ CREATE TABLE  IF NOT EXISTS `product` (
   `type` varchar(45) NOT NULL,
   `name` varchar(45) NOT NULL,
   `place` varchar(45) NOT NULL,
-  `number` int DEFAULT '0',
+--  `number` int DEFAULT '0',
   `date` varchar(45) NOT NULL,
   `price` int DEFAULT '0',
   `description` varchar(255) DEFAULT NULL,
@@ -42,8 +42,12 @@ CREATE TABLE IF NOT EXISTS `orderform` (
   PRIMARY KEY (`order_id`)
  );
 
+<<<<<<< HEAD
 
 CREATE TABLE IF NOT EXISTS `ordercontent` (
+=======
+CREATE TABLE IF NOT EXISTS `ordedrcontent` (
+>>>>>>> refs/heads/zhang
   `num_id` varchar(45) NOT NULL,
   `item_name` varchar(45) NOT NULL,
   `item_number` int DEFAULT '0',
@@ -53,6 +57,7 @@ CREATE TABLE IF NOT EXISTS `ordercontent` (
   PRIMARY KEY (`num_id`)
 );
 
+<<<<<<< HEAD
 CREATE TABLE IF NOT EXISTS `shopping` (
   `buyer_account` varchar(45) NOT NULL,
   `buyer_content` varchar(1000) NOT NULL,
@@ -69,6 +74,13 @@ CREATE TABLE IF NOT EXISTS `shopppingcontent` (
   `discription` varchar(255) DEFAULT NULL,
   `stock` int DEFAULT '0',
   PRIMARY KEY (`buyer_shopping_number`)
+=======
+CREATE TABLE IF NOT EXISTS `dishlist` (
+  `name` varchar(45) NOT NULL,
+  `needed` varchar(300) NOT NULL,
+  `cooking` varchar(1000) NOT NULL,
+  PRIMARY KEY (`name`)
+>>>>>>> refs/heads/zhang
 );
 
 
