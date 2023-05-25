@@ -8,7 +8,11 @@ CREATE TABLE IF NOT EXISTS `member` (
   PRIMARY KEY (`email`)
 );
 
+<<<<<<< HEAD
 CREATE TABLE  IF NOT EXISTS `product` (
+=======
+CREATE TABLE IF NOT EXISTS `product` (
+>>>>>>> refs/heads/Tsai2
   `hs_code` varchar(255) NOT NULL,
   `seller_account` varchar(45) NOT NULL,
   `type` varchar(45) NOT NULL,

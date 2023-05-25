@@ -26,11 +26,14 @@ public class MemberServiceImpl implements MemberService{
 		
 		List<Member> memberList = request.getMemberList();
 		List<Member> err = new ArrayList<>();
+		
+		// 正規表達式
 		String patternPhone = "[0][9]\\d{8}";
 		String petternPwd = "^(?=.*[0-9])(?=.*[a-zA-Z]).{6,}$";
 		
 		for(Member item : memberList) {
 			
+			// 防呆
 			if(!StringUtils.hasText(item.getAccount()) || !StringUtils.hasText(item.getPassword())
 					|| !StringUtils.hasText(item.getConfirm_password()) || !StringUtils.hasText(item.getEmail())
 					|| !StringUtils.hasText(item.getPhone()) || !StringUtils.hasText(item.getAddress())) {
@@ -69,7 +72,7 @@ public class MemberServiceImpl implements MemberService{
 		if (originalMember == null) {
 			return new SignupResponse("該會員不存在");
 		}
-		
+		// 正規表達式
 		String patternPhone = "[0][9]\\d{8}";
 		String petternPwd = "^(?=.*[0-9])(?=.*[a-zA-Z]).{6,}$";
 		
