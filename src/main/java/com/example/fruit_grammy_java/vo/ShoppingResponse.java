@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.example.fruit_grammy_java.entity.Product;
 import com.example.fruit_grammy_java.entity.Shopping;
+import com.example.fruit_grammy_java.entity.ShoppingContent;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -14,10 +15,18 @@ public class ShoppingResponse {
 	@JsonProperty("Shopping_List")
 	private List<Shopping> shoppingList;// 回傳多筆Shopping所有欄位
 	private String msg;
-	
+
 	private Product product;
-	
-	
+
+	@JsonProperty("Shopping_Detail_List")
+	private List<ShoppingContent> shoppingContentList;
+
+	public ShoppingResponse(String msg, List<ShoppingContent> shoppingContentList) {
+		super();
+		this.msg = msg;
+		this.shoppingContentList = shoppingContentList;
+	}
+
 	public ShoppingResponse(String msg) {
 		super();
 		this.msg = msg;
@@ -27,17 +36,13 @@ public class ShoppingResponse {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	
-	
-	
+
 	public ShoppingResponse(Shopping shopping, String msg) {
 		super();
 		this.shopping = shopping;
 		this.msg = msg;
 	}
-	
-	
-	
+
 	public Product getProduct() {
 		return product;
 	}
@@ -49,15 +54,19 @@ public class ShoppingResponse {
 	public Shopping getShopping() {
 		return shopping;
 	}
+
 	public void setShopping(Shopping shopping) {
 		this.shopping = shopping;
 	}
+
 	public String getMsg() {
 		return msg;
 	}
+
 	public void setMsg(String msg) {
 		this.msg = msg;
 	}
+
 	public ShoppingResponse(List<Shopping> shoppingList, String msg) {
 		super();
 		this.shoppingList = shoppingList;
@@ -71,6 +80,13 @@ public class ShoppingResponse {
 	public void setShoppingList(List<Shopping> shoppingList) {
 		this.shoppingList = shoppingList;
 	}
-	
-	
+
+	public List<ShoppingContent> getShoppingContentList() {
+		return shoppingContentList;
+	}
+
+	public void setShoppingContentList(List<ShoppingContent> shoppingContentList) {
+		this.shoppingContentList = shoppingContentList;
+	}
+
 }

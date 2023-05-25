@@ -29,17 +29,15 @@ public class ShoppingServiceImpl implements ShoppingService {
 	private ShoppingDao shoppingDao;
 	@Autowired
 	private ShoppingContentDao shoppingContentDao;
-	
-	
 
 	@Override
 	public ShoppingResponse addData(ShoppingRequest req) {
 		ShoppingContent ShoppingList = new ShoppingContent(); //
 		Shopping shoppingBasic = new Shopping();
 		String nextInfo = "";// 第二筆
-		String code1 = ""; //如果沒有登入過
-		String code2 = ""; //如果有
-		
+		String code1 = ""; // 如果沒有登入過
+		String code2 = ""; // 如果有
+
 		String productId = req.getProduct();// 請求產品編碼
 		String shoppingAccount = req.getBuyerAccount(); // 請求賣家帳號
 
@@ -47,19 +45,18 @@ public class ShoppingServiceImpl implements ShoppingService {
 		if (!StringUtils.hasText(shoppingAccount) && !StringUtils.hasText(productId)) {
 			return new ShoppingResponse("錯誤!無基本資訊");
 		}
-		
-	
 
 		List<ShoppingContent> allList = shoppingContentDao.findAll(); // 確認表內是否已經加入過 叫出全部資料
 		Optional<Product> ProductResult = productDao.findById(productId);
 		Product productContext = ProductResult.get();
 		String ItemID = productContext.getHsCode();
-        if(StringUtils.hasText(shoppingAccount)) {
-		for (ShoppingContent item : allList) {
-			if (item.getItemId().contains(ItemID) && item.getShoppingNumber().contains(shoppingAccount)) {
-				return new ShoppingResponse("重複");
+		if (StringUtils.hasText(shoppingAccount)) {
+			for (ShoppingContent item : allList) {
+				if (item.getItemId().contains(ItemID) && item.getShoppingNumber().contains(shoppingAccount)) {
+					return new ShoppingResponse("重複");
+				}
 			}
-		}}
+		}
 
 		Optional<Shopping> ShoppingResult = shoppingDao.findById(shoppingAccount);
 		if (!ShoppingResult.isPresent()) {
@@ -67,8 +64,7 @@ public class ShoppingServiceImpl implements ShoppingService {
 			shoppingBasic.setBuyerContent(shoppingAccount + "_001");
 			shoppingDao.save(shoppingBasic);
 			code1 = shoppingAccount + "_001";
-			
-			
+
 			ShoppingList.setShoppingNumber(code1);
 			ShoppingList.setItemId(productId);
 			shoppingContentDao.save(ShoppingList);
@@ -83,20 +79,18 @@ public class ShoppingServiceImpl implements ShoppingService {
 			String[] ChartArr = alreadyChart.getBuyerContent().split(",");
 			int ArrLong = ChartArr.length;
 			String[] numStr = ChartArr[0].split("_");
-			
+
 			int orderNum = Integer.valueOf(numStr[1]);
-            String  orderStr =String.valueOf(orderNum+1);
+			String orderStr = String.valueOf(orderNum + 1);
 			updateContent = shoppingAccount + "_00" + orderStr + "," + alreadyChart.getBuyerContent();
-			nextInfo =  (shoppingAccount + "_00" + orderStr);// 新的一筆資料
+			nextInfo = (shoppingAccount + "_00" + orderStr);// 新的一筆資料
 			alreadyChart.setBuyerContent(updateContent);
 			shoppingDao.save(alreadyChart);
 			code2 = nextInfo;
-			
 
 			ShoppingList.setShoppingNumber(code2);
 			ShoppingList.setItemId(productId);
 			shoppingContentDao.save(ShoppingList);
-			
 
 		}
 		ShoppingList.setItemName(productContext.getName());
@@ -148,23 +142,21 @@ public class ShoppingServiceImpl implements ShoppingService {
 			Shopping getShoppingResult = ShoppingResult.get();
 			String[] shoppingOredrArr = getShoppingResult.getBuyerContent().split(",");
 			List<String> result = new ArrayList<>();// collection
-            if(shoppingOredrArr.length==1) {
-            	 shoppingDao.deleteById(userAccount);
-             }
-			
-			
+			if (shoppingOredrArr.length == 1) {
+				shoppingDao.deleteById(userAccount);
+			}
+
 			for (int i = 0; i < shoppingOredrArr.length; i++) {
 
 				String item = shoppingOredrArr[i];
 				if (shoppingOredrArr[i].equals(shoppingCode)) {
 					continue;
-				} 
-					
+				}
+
 //					if(i==shoppingOredrArr.length-1 && shoppingOredrArr.length>=2) {
 //						stringShoppningCode += item;
 //					}
-				stringShoppningCode += item+",";
-				
+				stringShoppningCode += item + ",";
 
 				getShoppingResult.setBuyerContent(stringShoppningCode);
 				shoppingDao.save(getShoppingResult);
@@ -206,6 +198,23 @@ public class ShoppingServiceImpl implements ShoppingService {
 	public ShoppingResponse deleteData(ShoppingRequest req) {
 
 		return updateOrDelete(req, false);
+	}
+
+	@Override
+	public ShoppingResponse getShoppingData(ShoppingRequest req) {
+		List<ShoppingContent> userAllList = new ArrayList<>();
+
+		String userAccount = req.getBuyerAccount();
+		if (!StringUtils.hasText(userAccount)) {
+			return new ShoppingResponse("無使用者之權限_無讀取到值");
+
+		}
+
+		userAllList = shoppingContentDao.findByShoppingNumberContaining(userAccount);
+		if (userAllList.size() <= 0) {
+			return new ShoppingResponse("歡迎到瀏覽搜尋選購~");
+		}
+		return new ShoppingResponse("購物車有選購商品請確認", userAllList);
 	}
 
 }
