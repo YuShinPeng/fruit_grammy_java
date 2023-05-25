@@ -1,5 +1,6 @@
 package com.example.fruit_grammy_java.impl;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -19,6 +20,19 @@ public class ProductServiceImpl implements ProductService {
 
 	@Autowired
 	private ProductDao productDao;
+
+	// 檢查日期合法性私有方法
+	private boolean isValidDate(String date) {
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		dateFormat.setLenient(false);
+		try {
+			dateFormat.parse(date);
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+
+	}
 
 	// 賣家上架新商品
 	// 上架需填資訊
@@ -73,6 +87,10 @@ public class ProductServiceImpl implements ProductService {
 			}
 
 			// 檢查此日期是否合法性 ex. 4044-04-04 不可能
+			if (!isValidDate(item.getDate())) {
+                return new ProductResponse("日期不合法");
+            }
+			
 		}
 		// 新增成功回傳資訊和成功訊息
 		productDao.saveAll(productList);
@@ -182,8 +200,6 @@ public class ProductServiceImpl implements ProductService {
 		List<Product> searchReq = productDao.findByNameContaining(name);
 
 		for (Product item : searchReq) {
-			item.setHsCode(null);
-			item.setSellerAccount(null);
 			searchAllRes.add(item);
 		}
 		return new ProductResponse(searchAllRes, "specific info");

@@ -1,6 +1,7 @@
 CREATE TABLE IF NOT EXISTS `member` (
   `account` varchar(45) NOT NULL,
   `password` varchar(45) NOT NULL,
+  `confirm_password` varchar(45) NOT NULL,
   `email` varchar(45) NOT NULL,
   `phone` varchar(45) NOT NULL,
   `address` varchar(60) NOT NULL,
@@ -9,7 +10,6 @@ CREATE TABLE IF NOT EXISTS `member` (
 
 
 CREATE TABLE  IF NOT EXISTS `product` (
-
   `hs_code` varchar(255) NOT NULL,
   `seller_account` varchar(45) NOT NULL,
   `type` varchar(45) NOT NULL,
@@ -68,6 +68,7 @@ CREATE TABLE IF NOT EXISTS `shopppingcontent` (
   `discription` varchar(255) DEFAULT NULL,
   `stock` int DEFAULT '0',
   PRIMARY KEY (`buyer_shopping_number`)
+<<<<<<< HEAD
 );
 
 CREATE TABLE IF NOT EXISTS `dishlist` (
@@ -76,6 +77,10 @@ CREATE TABLE IF NOT EXISTS `dishlist` (
   `cooking` varchar(1000) NOT NULL,
   PRIMARY KEY (`name`)
 );
+=======
+ );
+
+>>>>>>> refs/heads/YuShinPeng3
 
 
 

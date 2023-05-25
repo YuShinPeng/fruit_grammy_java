@@ -37,9 +37,12 @@ public class ShoppingController {
 	return  shoppingService.deleteData(req);
 	}
 	
+
 	
 	@PostMapping("get_shopping_data")
 	public ShoppingResponse getShoppingData(@RequestBody ShoppingRequest req) {
 	return  shoppingService.getShoppingData(req);
 	}
+
+
 }

@@ -13,16 +13,10 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 @Table(name = "product")
 public class Product {
 
-	
 	@Id
 	@Column(name = "hs_code")
 	private String hsCode;
-
-
-
-
-
-
+	
 	@Column(name = "seller_account")
 	private String sellerAccount;
 
