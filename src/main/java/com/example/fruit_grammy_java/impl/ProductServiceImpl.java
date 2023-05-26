@@ -88,7 +88,7 @@ public class ProductServiceImpl implements ProductService {
 
 			// 檢查此日期是否合法性 ex. 4044-04-04 不可能
 			if (!isValidDate(item.getDate())) {
-                return new ProductResponse("日期不合法");
+                return new ProductResponse("日期不存在");
             }
 			
 		}
