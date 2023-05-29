@@ -22,5 +22,9 @@ public interface ProductService {
 	
 	// 買家搜尋 生產履歷 -- 透過產地搜尋
 	public ProductResponse searchPlaceProduct(String place);
- 	
+	
+	// 買家搜尋 生產日期查詢
+	public ProductResponse searchPeriod(ProductRequest productReq);
+	
+	
 }

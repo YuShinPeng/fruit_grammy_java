@@ -21,6 +21,17 @@ public class ShoppingResponse {
 	@JsonProperty("Shopping_Detail_List")
 	private List<ShoppingContent> shoppingContentList;
 
+	
+	
+	
+	
+	
+	public ShoppingResponse(List<ShoppingContent> shoppingContentList) {
+		super();
+		this.shoppingContentList = shoppingContentList;
+	}
+
+
 	public ShoppingResponse(String msg, List<ShoppingContent> shoppingContentList) {
 		super();
 		this.msg = msg;

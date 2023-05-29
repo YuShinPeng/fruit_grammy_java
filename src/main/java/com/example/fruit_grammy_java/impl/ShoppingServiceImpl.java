@@ -42,6 +42,9 @@ public class ShoppingServiceImpl implements ShoppingService {
 		String productId = req.getProduct();// 請求產品編碼
 		String shoppingAccount = req.getBuyerAccount(); // 請求賣家帳號
 
+		int shoppingAddNum = req.getNumber(); // 請求買家需要加入數量
+
+
 		List<ShoppingContent> allList = shoppingContentDao.findAll(); // 確認表內是否已經加入過 叫出全部資料
 		Optional<Product> ProductResult = productDao.findById(productId);
 		Product productContext = ProductResult.get();
@@ -53,6 +56,12 @@ public class ShoppingServiceImpl implements ShoppingService {
 				}
 			}
 		}
+
+
+		if (shoppingAddNum > productContext.getNumber()) {
+			return new ShoppingResponse("超過賣家數量，請重下");
+		}
+
 
 		// 基本資料
 		if (!StringUtils.hasText(shoppingAccount) && !StringUtils.hasText(productId)) {
@@ -93,7 +102,11 @@ public class ShoppingServiceImpl implements ShoppingService {
 				intArr.add(orderNum);
 			}
 
+
 			// Collections.sort(intArr); //ASC
+
+//			Collections.sort(intArr); //ASC
+
 			Collections.sort(intArr, Collections.reverseOrder()); // DSEC
 
 			String orderStr = String.valueOf(intArr.get(0) + 1);
@@ -109,6 +122,9 @@ public class ShoppingServiceImpl implements ShoppingService {
 
 		}
 
+
+		ShoppingList.setItemNum(shoppingAddNum);
+
 		ShoppingList.setItemName(productContext.getName());
 		ShoppingList.setDiscription(productContext.getDescription());
 		ShoppingList.setItemPrice(productContext.getPrice());
@@ -122,24 +138,30 @@ public class ShoppingServiceImpl implements ShoppingService {
 
 	// ===================================================================
 	private ShoppingResponse updateOrDelete(ShoppingRequest req, boolean isUpdate) {
-		String userAccount = req.getBuyerAccount();
-		int reqNum = req.getNumber();
-		String shoppingCode = req.getShoppingCode();
+		String userAccount = req.getBuyerAccount(); //使用者為誰
+		String shoppingCode = req.getShoppingCode(); //買方預購序號
+	
 
 		if (!StringUtils.hasText(userAccount)) {
 			return new ShoppingResponse("無使用之權限");
 		}
 
 		// 根據提供的shoppingCode找到要更新刪除的資料
-
+		
 		Optional<ShoppingContent> ShoppingContentResult = shoppingContentDao.findById(shoppingCode);
 
 		ShoppingContent getShoppingContent = ShoppingContentResult.get();
 
 		if (isUpdate) { // 更新情況
+			int reqNum = req.getNumber(); //產品數量
+			String productId = req.getProduct(); //產品ID
+			Optional<Product> ProductList = productDao.findById(productId);
+			Product produtInfo = ProductList.get();
 
 			if (reqNum <= 0 && StringUtils.hasText(shoppingCode)) {
 				return new ShoppingResponse("請使用移除功能，或請更正為大於零的數字");
+			} else if (reqNum > produtInfo.getNumber()) {
+				return new ShoppingResponse("已超過賣家提供數量上限，請調整，最大值為庫存數量");
 			} else {
 				getShoppingContent.setItemNum(reqNum);
 				shoppingContentDao.save(getShoppingContent);
@@ -149,7 +171,7 @@ public class ShoppingServiceImpl implements ShoppingService {
 		}
 
 		// 刪除情況
-		String stringShoppningCode = "";
+	
 		if (StringUtils.hasText(shoppingCode)) {
 
 			shoppingContentDao.deleteById(shoppingCode);
@@ -173,9 +195,17 @@ public class ShoppingServiceImpl implements ShoppingService {
 				resultArr.add(item);
 			}
 
+
 //	     if(i==shoppingOredrArr.length-1 && shoppingOredrArr.length>=2) {
 //	      stringShoppningCode += item;
 //	     }
+
+
+
+//					if(i==shoppingOredrArr.length-1 && shoppingOredrArr.length>=2) {
+//						stringShoppningCode += item;
+//					}
+
 
 			for (int i = 0; i < resultArr.size(); i++) {
 				String item = resultArr.get(i);
@@ -220,9 +250,12 @@ public class ShoppingServiceImpl implements ShoppingService {
 
 		userAllList = shoppingContentDao.findByShoppingNumberContaining(userAccount);
 		if (userAllList.size() <= 0) {
+
 			return new ShoppingResponse("歡迎到瀏覽搜尋選購~");
 		}
-		return new ShoppingResponse("購物車有選購商品請確認", userAllList);
+		return new ShoppingResponse(userAllList);
+
+	
 	}
 
 }
