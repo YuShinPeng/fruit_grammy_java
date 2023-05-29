@@ -19,12 +19,9 @@ public class ProductRequest {
 
 	@JsonProperty("seller_account")
 
-	private String seller_account;
+	private String sellerAccount;
 	
 	@JsonProperty("name")
-
-	private String sellerAccount;
-
 	private String name;
 
 	private String type;
@@ -38,6 +35,9 @@ public class ProductRequest {
 	private String description;
 
 	private int price;
+	
+	private String firstDay;
+	private String endDay;
 
 	public ProductRequest() {
 
@@ -130,5 +130,23 @@ public class ProductRequest {
 	public void setPrice(int price) {
 		this.price = price;
 	}
+
+	public String getFirstDay() {
+		return firstDay;
+	}
+
+	public void setFirstDay(String firstDay) {
+		this.firstDay = firstDay;
+	}
+
+	public String getEndDay() {
+		return endDay;
+	}
+
+	public void setEndDay(String endDay) {
+		this.endDay = endDay;
+	}
+	
+	
 
 }

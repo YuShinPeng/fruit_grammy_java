@@ -25,6 +25,11 @@ public class ShoppingResponse {
 	
 	
 	
+	public ShoppingResponse(List<ShoppingContent> shoppingContentList) {
+		super();
+		this.shoppingContentList = shoppingContentList;
+	}
+
 	public ShoppingResponse(String msg, List<ShoppingContent> shoppingContentList) {
 		super();
 		this.msg = msg;

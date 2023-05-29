@@ -46,5 +46,12 @@ public class ProductController {
 	public ProductResponse searchSellerProduct(@RequestBody ProductRequest productReq) {
 		return productService.searchSellerProduct(productReq.getSellerAccount());
 	}
+	
+	@PostMapping("search_period")
+	public ProductResponse searchPeriod(@RequestBody ProductRequest productReq) {
+		return productService.searchPeriod(productReq);
+	}
+	
+
 
 }
