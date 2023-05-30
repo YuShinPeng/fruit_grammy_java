@@ -244,7 +244,7 @@ public class ShoppingServiceImpl implements ShoppingService {
 
 		String userAccount = req.getBuyerAccount();
 		if (!StringUtils.hasText(userAccount)) {
-			return new ShoppingResponse("無使用者之權限_無讀取到值");
+			return new ShoppingResponse("無使用者之權限");
 
 		}
 
