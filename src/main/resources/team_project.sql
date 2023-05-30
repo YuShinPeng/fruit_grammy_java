@@ -8,17 +8,14 @@ CREATE TABLE IF NOT EXISTS `member` (
   PRIMARY KEY (`email`)
 );
 
-<<<<<<< HEAD
-CREATE TABLE  IF NOT EXISTS `product` (
-=======
+
 CREATE TABLE IF NOT EXISTS `product` (
->>>>>>> refs/heads/Tsai2
   `hs_code` varchar(255) NOT NULL,
   `seller_account` varchar(45) NOT NULL,
   `type` varchar(45) NOT NULL,
   `name` varchar(45) NOT NULL,
   `place` varchar(45) NOT NULL,
---  `number` int DEFAULT '0',
+  `number` int DEFAULT '0',
   `date` varchar(45) NOT NULL,
   `price` int DEFAULT '0',
   `description` varchar(255) DEFAULT NULL,
