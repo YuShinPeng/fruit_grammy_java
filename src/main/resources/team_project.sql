@@ -14,7 +14,7 @@ CREATE TABLE IF NOT EXISTS `product` (
   `type` varchar(45) NOT NULL,
   `name` varchar(45) NOT NULL,
   `place` varchar(45) NOT NULL,
---  `number` int DEFAULT '0',
+  `number` int DEFAULT '0',
   `date` varchar(45) NOT NULL,
   `price` int DEFAULT '0',
   `description` varchar(255) DEFAULT NULL,
