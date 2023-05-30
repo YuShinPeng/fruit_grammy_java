@@ -268,7 +268,7 @@ public class ProductServiceImpl implements ProductService {
 		String firstPosition = productReq.getFirstDay();
 		String secondPosition = productReq.getEndDay();
 		List<String> periodList = new ArrayList<>();// 收集經歷的日期
-		List<Product> productDateList = new ArrayList<>(); // 已經跑出來的結果
+		
 		
 		
 		 //用LocalDate 直接對應正確的時間
@@ -408,12 +408,23 @@ public class ProductServiceImpl implements ProductService {
 //			        }
 //			    }
 //			}
-		
-		
+	        
+	    List<Product> productDateList = new ArrayList<>(); // 已經跑出來的結果
 		for (String item : periodList) {
 			List<Product> dateStartList = productDao.findByDate(item);
 			for (Product resultItem : dateStartList) {
-				productDateList.add(resultItem);
+				Product preInfo= new Product();//單筆資料
+				preInfo.setHsCode(resultItem.getHsCode());
+				preInfo.setName(resultItem.getName());
+				preInfo.setDate(resultItem.getDate());
+				preInfo.setDescription(resultItem.getDescription());
+				preInfo.setNumber(resultItem.getNumber());
+				preInfo.setPlace(resultItem.getPlace());
+				preInfo.setPrice(resultItem.getPrice());
+				preInfo.setSellerAccount(resultItem.getSellerAccount());
+				preInfo.setType(resultItem.getType());
+				
+				productDateList.add(preInfo); //新增到外面的表
 
 			}
 		}
