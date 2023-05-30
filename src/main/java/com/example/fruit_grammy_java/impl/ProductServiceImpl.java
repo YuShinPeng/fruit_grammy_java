@@ -1,6 +1,5 @@
 package com.example.fruit_grammy_java.impl;
 
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,19 +20,6 @@ public class ProductServiceImpl implements ProductService {
 
 	@Autowired
 	private ProductDao productDao;
-
-	// 檢查日期合法性私有方法
-	private boolean isValidDate(String date) {
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-		dateFormat.setLenient(false);
-		try {
-			dateFormat.parse(date);
-			return true;
-		} catch (Exception e) {
-			return false;
-		}
-
-	}
 
 	// 賣家上架新商品
 	// 上架需填資訊
@@ -80,21 +66,16 @@ public class ProductServiceImpl implements ProductService {
 			if (!StringUtils.hasText(date)) {
 				return new ProductResponse("採收日期不得為空");
 			}
+			try {
+				LocalDate productDate = LocalDate.parse(date);
 
-			// 檢查日期是否符合格式且具有合法性
-			String regex = "\\d{4}-\\d{2}-\\d{2}";
-			if (!date.matches(regex)) {
+				// 日期不得為未來日期
+				LocalDate currentDate = LocalDate.now();
+				if (productDate.isAfter(currentDate)) {
+					return new ProductResponse("日期格式錯誤");
+				}
+			} catch (Exception e) {
 				return new ProductResponse("日期格式錯誤");
-			}
-
-			// 檢查此日期是否合法性 ex. 4044-04-04 不可能
-			if (!isValidDate(date)) {
-				return new ProductResponse("日期格式錯誤");
-			}
-
-			// 未來日期不存在
-			if (isValidDate(date)) {
-				return new ProductResponse("不得為未來日期");
 			}
 
 		}
@@ -142,21 +123,20 @@ public class ProductServiceImpl implements ProductService {
 		// 修改日期
 		if (StringUtils.hasText(date)) {
 			getProduct.setDate(date);
-			// 檢查日期是否符合格式
-			String regex = "\\d{4}-\\d{2}-\\d{2}";
-			if (!date.matches(regex)) {
-				return new ProductResponse("日期格式錯誤");
-			}
-			// 檢查此日期是否合法性 ex. 4044-04-04 不可能
-			if (!isValidDate(date)) {
-				return new ProductResponse("日期格式錯誤");
+			if (!StringUtils.hasText(date)) {
+				return new ProductResponse("採收日期不得為空");
 			}
 
-			// 未來日期不存在
-			if (isValidDate(date)) {
-				return new ProductResponse("不得為未來日期");
+			// 日期不得為未來日期
+			try {
+				LocalDate productDate = LocalDate.parse(date);
+				LocalDate currentDate = LocalDate.now();
+				if (productDate.isAfter(currentDate)) {
+					return new ProductResponse("日期格式錯誤");
+				}
+			} catch (Exception e) {
+				return new ProductResponse("日期格式錯誤");
 			}
-
 			productDao.save(getProduct);
 		}
 
