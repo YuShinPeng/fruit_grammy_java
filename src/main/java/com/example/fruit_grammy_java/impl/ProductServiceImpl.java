@@ -1,6 +1,7 @@
 package com.example.fruit_grammy_java.impl;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -88,9 +89,16 @@ public class ProductServiceImpl implements ProductService {
 
 			// 檢查此日期是否合法性 ex. 4044-04-04 不可能
 			if (!isValidDate(item.getDate())) {
-                return new ProductResponse("日期不存在");
-            }
-			
+				return new ProductResponse("日期不存在");
+			}
+
+			// 檢查日期是否為未來日期
+			LocalDate currentDate = LocalDate.now();
+			LocalDate parsedLocalDate = LocalDate.parse(date);
+			if (parsedLocalDate.isAfter(currentDate)) {
+				return new ProductResponse("不得為未來日期");
+			}
+
 		}
 		// 新增成功回傳資訊和成功訊息
 		productDao.saveAll(productList);
@@ -141,6 +149,19 @@ public class ProductServiceImpl implements ProductService {
 			if (!date.matches(regex)) {
 				return new ProductResponse("日期格式錯誤");
 			}
+
+			// 檢查此日期是否合法性 ex. 4044-04-04 不可能
+			if (!isValidDate(productReq.getDate())) {
+				return new ProductResponse("日期不存在");
+			}
+
+			// 檢查日期是否為未來日期
+			LocalDate currentDate = LocalDate.now();
+			LocalDate parsedLocalDate = LocalDate.parse(date);
+			if (parsedLocalDate.isAfter(currentDate)) {
+				return new ProductResponse("不得為未來日期");
+			}
+
 			productDao.save(getProduct);
 		}
 
@@ -225,7 +246,7 @@ public class ProductServiceImpl implements ProductService {
 			searchAllRes.add(searchRes);
 		}
 
-		return new ProductResponse("搜尋結果如下", searchAllRes);
+		return new ProductResponse(searchAllRes);
 	}
 
 	// 刪除已上架商品
