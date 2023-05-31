@@ -15,6 +15,7 @@ import com.example.fruit_grammy_java.entity.OrderContent;
 import com.example.fruit_grammy_java.ifs.OrderService;
 import com.example.fruit_grammy_java.repository.OrderContentDao;
 import com.example.fruit_grammy_java.repository.OrderDao;
+import com.example.fruit_grammy_java.vo.OrderContentRequest;
 import com.example.fruit_grammy_java.vo.OrderRequest;
 import com.example.fruit_grammy_java.vo.OrderResponse;
 
@@ -25,22 +26,26 @@ public class OrderServiceImpl implements OrderService{
 	private OrderContentDao contentDao;
 	@Autowired
 	private OrderDao orderDao;
-	
+//===========================新增訂單=================================
 	public OrderResponse addOrder(OrderRequest orderRequest) {
-		
+		// 從前端取得訂單資訊
 		Order order = orderRequest.getOrder();
-		
+		// 從前端取得訂單內容
 		List<OrderContent> contentList = orderRequest.getContentList();
 		
+		// 建立新的 List 存放內容的 num_id
 		List <String> idList = new ArrayList<>();  
-		for(OrderContent item : contentList) {	 
+		for(OrderContent item : contentList) {
+			// 防呆，不能沒有商品明或是購買數量
 			if(!StringUtils.hasText(item.getItem_name()) || item.getItem_number() <= 0 ) {
 				return new OrderResponse("格式錯誤");
 			}
 			// 等待商品資料庫入駐，要補上若無商品或庫存不夠的防呆
+			// 將 num_id 集結成 List
 			idList.add(item.getNum_id());
 			
 		}
+		// 使用 Join 的方式把訂單內容的 num_id 加入訂單資訊方便管理
 		order.setContent(String.join(",", idList));
 		
 		orderDao.save(order);
@@ -49,7 +54,7 @@ public class OrderServiceImpl implements OrderService{
 		return new OrderResponse(order,"訂單新增成功");
 	}
 	
-	
+//===========================訂單更改成已完成=================================
 	public OrderResponse doneOrder(OrderRequest orderRequest) {
 		String id = orderRequest.getOrder_id();
 		Optional<Order> orderOp = orderDao.findById(id);
@@ -68,12 +73,22 @@ public class OrderServiceImpl implements OrderService{
 		return new OrderResponse("訂單尚未出貨");
 	}
 
+//===========================訂單更改成已出貨=================================
 	public OrderResponse shippedOrder(OrderRequest orderRequest){
 		String id = orderRequest.getOrder_id();
 		Optional<Order> orderOp = orderDao.findById(id);
 		Order orderGet = orderOp.get();
-
 		if(orderGet.getOrder_condition().equals("未出貨")){
+			
+		String content = orderGet.getContent();		
+		for(String item: content.split(",")) {
+			Optional<OrderContent> detail = contentDao.findById(item);
+			OrderContent detailGet = detail.get();
+			if(detailGet.getItem_condition().equals("未出貨")) {
+				return new OrderResponse("尚有產品未出貨");
+			}
+		}
+		
 			orderGet.setOrder_condition("已出貨");
 			orderDao.save(orderGet);
 			return new OrderResponse("狀態更改已出貨");
@@ -81,9 +96,39 @@ public class OrderServiceImpl implements OrderService{
 		return new OrderResponse("訂單已出貨或完成");
 	}
 
+//===========================訂單品項更改成已出貨=================================
+	public OrderResponse shippedItem(OrderContentRequest orderContentRequest) {
+		String num_id = orderContentRequest.getNum_id();
+		if(!StringUtils.hasText(num_id)) {
+			return new OrderResponse("不能為空");
+		}
+		Optional<OrderContent> item = contentDao.findById(num_id);
+		OrderContent itemGet = item.get();
+		if(!itemGet.getItem_condition().equals("未出貨")) {
+			return new OrderResponse("已完成出貨");
+		}
+		itemGet.setItem_condition("已出貨");
+		contentDao.save(itemGet);
+		return new OrderResponse("已更改狀態");
+	}
 	
-
-	public OrderResponse allOrder(OrderRequest orderRequest){
+//===========================訂單品項更改成未出貨=================================	
+	public OrderResponse callBackItem(OrderContentRequest orderContentRequest) {
+		String num_id = orderContentRequest.getNum_id();
+		if(!StringUtils.hasText(num_id)){
+			return new OrderResponse("要有欄位");
+		}
+		Optional<OrderContent> item = contentDao.findById(num_id);
+		OrderContent itemGet = item.get();
+		if(!itemGet.getItem_condition().equals("已出貨")){
+			return new OrderResponse("本來就還沒出貨");
+		}
+		itemGet.setItem_condition("未出貨");
+		contentDao.save(itemGet);
+		return new OrderResponse("已更改回未出貨");
+	}
+//===========================顯示賣家訂單=================================	
+	public OrderResponse sellerOrder(OrderRequest orderRequest){
 		// 讀到使用者帳號
 		String userAcc = orderRequest.getSellerAccount();
 		// 取出所有訂單內容
@@ -113,7 +158,7 @@ public class OrderServiceImpl implements OrderService{
 	
 		return new OrderResponse(userOrderContent,orderList);
 	}
-
+//===========================顯示買家訂單=================================	
 	public OrderResponse buyerOrder(OrderRequest orderRequest){
 		String buyer = orderRequest.getBuyerAccount();
 

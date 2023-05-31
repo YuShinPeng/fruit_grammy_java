@@ -51,10 +51,6 @@ public class ShoppingRequest {
 		this.shopping = shopping;
 	}
 
-	
-	
-	
-	
 	public String getShoppingCode() {
 		return shoppingCode;
 	}
@@ -78,8 +74,6 @@ public class ShoppingRequest {
 	public void setBuyerAccount(String buyerAccount) {
 		this.buyerAccount = buyerAccount;
 	}
-
-	
 
 	public String getProduct() {
 		return product;

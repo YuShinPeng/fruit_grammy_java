@@ -41,7 +41,7 @@ CREATE TABLE IF NOT EXISTS `orderform` (
 );
 
 
-CREATE TABLE IF NOT EXISTS `ordedrcontent` (
+CREATE TABLE IF NOT EXISTS `ordercontent` (
   `num_id` varchar(45) NOT NULL,
   `item_name` varchar(45) NOT NULL,
   `item_number` int DEFAULT '0',

@@ -31,6 +31,8 @@ public class ShoppingContent {
 		private String discription;
 		@Column(name = "stock")
 		private int stock;
+		@Column(name = "shop_condition")
+		private boolean shop_condition = false;
 
 		
 		public ShoppingContent() {
@@ -116,6 +118,16 @@ public class ShoppingContent {
 
 		public void setStock(int stock) {
 			this.stock = stock;
+		}
+
+
+		public boolean isShop_condition() {
+			return shop_condition;
+		}
+
+
+		public void setShop_condition(boolean shop_condition) {
+			this.shop_condition = shop_condition;
 		}
 		
 			
