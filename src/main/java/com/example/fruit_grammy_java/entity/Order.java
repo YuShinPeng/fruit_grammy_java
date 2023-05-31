@@ -21,6 +21,10 @@ public class Order {
 	@Column(name = "seller_account")
 	private String seller_account;
 	
+	//收件人
+	@Column(name = "buyer")
+	private String buyer;
+	
 	// 買家帳號
 	@Column(name = "buyer_account")
 	private String buyer_account;
@@ -99,6 +103,14 @@ public class Order {
 
 	public void setOrder_condition(String order_condition) {
 		this.order_condition = order_condition;
+	}
+
+	public String getBuyer() {
+		return buyer;
+	}
+
+	public void setBuyer(String buyer) {
+		this.buyer = buyer;
 	}
 
 	

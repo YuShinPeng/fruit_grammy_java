@@ -29,10 +29,14 @@ public class OrderContent {
 	// 總價格
 	@Column(name = "total_price")
 	private int total_price;
-	
+
+	//賣家
 	@Column(name = "seller_account")
 	private String seller_account;
 
+	@Column(name = "item_condition")
+	private String item_condition;
+	
 	public OrderContent() {
 
 	}
@@ -83,6 +87,14 @@ public class OrderContent {
 
 	public void setSeller_account(String seller_account) {
 		this.seller_account = seller_account;
+	}
+
+	public String getItem_condition() {
+		return item_condition;
+	}
+
+	public void setItem_condition(String item_condition) {
+		this.item_condition = item_condition;
 	}
 
 	

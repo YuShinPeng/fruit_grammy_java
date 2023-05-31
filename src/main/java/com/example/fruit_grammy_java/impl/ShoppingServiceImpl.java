@@ -33,12 +33,18 @@ public class ShoppingServiceImpl implements ShoppingService {
 
 	@Override
 	public ShoppingResponse addData(ShoppingRequest req) {
-		ShoppingContent ShoppingList = new ShoppingContent(); //
+		//購物車內容
+		ShoppingContent ShoppingList = new ShoppingContent();
+		//購物車
 		Shopping shoppingBasic = new Shopping();
-		String nextInfo = "";// 第二筆
-		String code1 = ""; // 如果沒有登入過
-		String code2 = ""; // 如果有
+		// 第二筆
+		String nextInfo = "";
+		// 不曾登入過
+		String code1 = "";
+		// 曾經登入過
+		String code2 = "";										
 
+<<<<<<< HEAD
 		String productId = req.getProduct();// 請求產品編碼
 		String shoppingAccount = req.getBuyerAccount(); // 請求賣家帳號
 
@@ -46,8 +52,20 @@ public class ShoppingServiceImpl implements ShoppingService {
 
 
 		List<ShoppingContent> allList = shoppingContentDao.findAll(); // 確認表內是否已經加入過 叫出全部資料
+=======
+		// 請求產品編碼
+		String productId = req.getProduct();
+		// 請求買家帳號
+		String shoppingAccount = req.getBuyerAccount(); 
+		
+		// 確認表內是否已經加入過 叫出全部資料
+		// 建立放購物車內容的 List
+		List<ShoppingContent> allList = shoppingContentDao.findAll(); 
+		// 購物車內各品項的詳細資料
+>>>>>>> Tung3
 		Optional<Product> ProductResult = productDao.findById(productId);
 		Product productContext = ProductResult.get();
+		// 商品編號
 		String ItemID = productContext.getHsCode();
 		if (StringUtils.hasText(shoppingAccount)) {
 			for (ShoppingContent item : allList) {
@@ -130,6 +148,7 @@ public class ShoppingServiceImpl implements ShoppingService {
 		ShoppingList.setItemPrice(productContext.getPrice());
 		ShoppingList.setSellAccount(productContext.getSellerAccount());
 		ShoppingList.setStock(productContext.getNumber());
+		ShoppingList.setShop_condition(false);
 		//
 		shoppingContentDao.save(ShoppingList);
 
@@ -244,8 +263,12 @@ public class ShoppingServiceImpl implements ShoppingService {
 
 		String userAccount = req.getBuyerAccount();
 		if (!StringUtils.hasText(userAccount)) {
+<<<<<<< HEAD
 			return new ShoppingResponse("無使用者之權限");
 
+=======
+			return new ShoppingResponse("無使用者之權限_無讀取到值");
+>>>>>>> Tung3
 		}
 
 		userAllList = shoppingContentDao.findByShoppingNumberContaining(userAccount);
