@@ -169,6 +169,7 @@ public class ProductServiceImpl implements ProductService {
 
 		for (Product item : searchReq) {
 			ProductResponse searchRes = new ProductResponse();
+			searchRes.setHsCode(item.getHsCode());
 			searchRes.setPlace(place);
 			searchRes.setName(item.getName());
 			searchRes.setDate(item.getDate());
@@ -176,6 +177,7 @@ public class ProductServiceImpl implements ProductService {
 			searchRes.setNumber(item.getNumber());
 			searchRes.setPrice(item.getPrice());
 			searchRes.setDescription(item.getDescription());
+			
 			searchAllRes.add(searchRes);
 		}
 		return new ProductResponse(searchAllRes);

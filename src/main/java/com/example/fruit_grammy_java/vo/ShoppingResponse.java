@@ -10,21 +10,25 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ShoppingResponse {
+	
+	// 回傳單筆購物車資料(包含所有欄位)
 	@JsonProperty("Shopping_info")
-	private Shopping shopping; // 回傳單筆Shopping所有欄位
+	private Shopping shopping; 
+	
+	// 回傳多筆購物車資料(包含所有欄位)
 	@JsonProperty("Shopping_List")
-	private List<Shopping> shoppingList;// 回傳多筆Shopping所有欄位
+	private List<Shopping> shoppingList;
+	
+	// 不論成功與否皆回傳訊息告知使用者
 	private String msg;
 
+	
 	private Product product;
 
+	// 回傳多筆購物車內容資料
 	@JsonProperty("Shopping_Detail_List")
 	private List<ShoppingContent> shoppingContentList;
 
-	
-	
-	
-	
 	
 	public ShoppingResponse(List<ShoppingContent> shoppingContentList) {
 		super();

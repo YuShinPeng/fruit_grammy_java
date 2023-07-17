@@ -5,131 +5,113 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-
-
 @Entity
-@Table(name ="shopppingcontent")
+@Table(name = "shopppingcontent")
 public class ShoppingContent {
 
+	@Id
+	@Column(name = "buyer_shopping_number")
+	private String shoppingNumber;
 
-	
-		
-		@Id
-		@Column(name = "buyer_shopping_number")
-		private String shoppingNumber;
-		@Column(name = "item_id")
-		private String itemId;
-		@Column(name = "item_name")
-		private String itemName;
-		@Column(name = "sell_account")
-		private String sellAccount;
-		@Column(name = "per_price")
-		private int itemPrice;
-		@Column(name = "item_num")
-		private int itemNum;
-		@Column(name = "discription")
-		private String discription;
-		@Column(name = "stock")
-		private int stock;
-		@Column(name = "shop_condition")
-		private boolean shop_condition = false;
+	@Column(name = "item_id")
+	private String itemId;
 
-		
-		public ShoppingContent() {
-			super();
-			// TODO Auto-generated constructor stub
-		}
+	@Column(name = "item_name")
+	private String itemName;
 
+	@Column(name = "sell_account")
+	private String sellAccount;
 
-		public String getShoppingNumber() {
-			return shoppingNumber;
-		}
+	@Column(name = "per_price")
+	private int itemPrice;
 
+	@Column(name = "item_num")
+	private int itemNum;
 
-		public void setShoppingNumber(String shoppingNumber) {
-			this.shoppingNumber = shoppingNumber;
-		}
+	@Column(name = "discription")
+	private String discription;
 
+	@Column(name = "stock")
+	private int stock;
 
-		public String getItemId() {
-			return itemId;
-		}
+	@Column(name = "shop_condition")
+	private boolean shop_condition = false;
 
+	public ShoppingContent() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
-		public void setItemId(String itemId) {
-			this.itemId = itemId;
-		}
+	public String getShoppingNumber() {
+		return shoppingNumber;
+	}
 
+	public void setShoppingNumber(String shoppingNumber) {
+		this.shoppingNumber = shoppingNumber;
+	}
 
-		public String getItemName() {
-			return itemName;
-		}
+	public String getItemId() {
+		return itemId;
+	}
 
+	public void setItemId(String itemId) {
+		this.itemId = itemId;
+	}
 
-		public void setItemName(String itemName) {
-			this.itemName = itemName;
-		}
+	public String getItemName() {
+		return itemName;
+	}
 
+	public void setItemName(String itemName) {
+		this.itemName = itemName;
+	}
 
-		public String getSellAccount() {
-			return sellAccount;
-		}
+	public String getSellAccount() {
+		return sellAccount;
+	}
 
+	public void setSellAccount(String sellAccount) {
+		this.sellAccount = sellAccount;
+	}
 
-		public void setSellAccount(String sellAccount) {
-			this.sellAccount = sellAccount;
-		}
+	public int getItemPrice() {
+		return itemPrice;
+	}
 
+	public void setItemPrice(int itemPrice) {
+		this.itemPrice = itemPrice;
+	}
 
-		public int getItemPrice() {
-			return itemPrice;
-		}
+	public int getItemNum() {
+		return itemNum;
+	}
 
+	public void setItemNum(int itemNum) {
+		this.itemNum = itemNum;
+	}
 
-		public void setItemPrice(int itemPrice) {
-			this.itemPrice = itemPrice;
-		}
+	public String getDiscription() {
+		return discription;
+	}
 
+	public void setDiscription(String discription) {
+		this.discription = discription;
+	}
 
-		public int getItemNum() {
-			return itemNum;
-		}
+	public int getStock() {
+		return stock;
+	}
 
+	public void setStock(int stock) {
+		this.stock = stock;
+	}
 
-		public void setItemNum(int itemNum) {
-			this.itemNum = itemNum;
-		}
+	public boolean isShop_condition() {
+		return shop_condition;
+	}
 
-
-		public String getDiscription() {
-			return discription;
-		}
-
-
-		public void setDiscription(String discription) {
-			this.discription = discription;
-		}
-
-
-		public int getStock() {
-			return stock;
-		}
-
-
-		public void setStock(int stock) {
-			this.stock = stock;
-		}
-
-
-		public boolean isShop_condition() {
-			return shop_condition;
-		}
-
-
-		public void setShop_condition(boolean shop_condition) {
-			this.shop_condition = shop_condition;
-		}
-		
-			
+	public void setShop_condition(boolean shop_condition) {
+		this.shop_condition = shop_condition;
+	}
 
 }

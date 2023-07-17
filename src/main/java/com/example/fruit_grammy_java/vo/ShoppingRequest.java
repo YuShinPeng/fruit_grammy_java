@@ -8,25 +8,30 @@ import com.example.fruit_grammy_java.entity.Shopping;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class ShoppingRequest {
-	@JsonProperty("Shopping_info")
-	private Shopping shopping; // 回傳單筆Shopping所有欄位
-
-	@JsonProperty("Shopping_List")
-	private List<Shopping> shoppingList;// 回傳多筆Shopping所有欄位
 	
+	// 回傳單筆Shopping所有欄位
+	@JsonProperty("Shopping_info")
+	private Shopping shopping; 
+
+	// 回傳多筆Shopping所有欄位
+	@JsonProperty("Shopping_List")
+	private List<Shopping> shoppingList;
+	
+	// 回傳買家帳號
 	@JsonProperty("buyerAccount")
 	private String buyerAccount;
 	
+	// 商品編碼
 	@JsonProperty("product")
 	private String product;
 	
+	//更新數量
 	@JsonProperty("number")
-	private int number; //更新數量
+	private int number; 
+	
+	//購物車代碼
 	@JsonProperty("shoppingCode")
-	private String shoppingCode;//購物車代碼
-	
-	
-	
+	private String shoppingCode;
 	
 	public ShoppingRequest(Shopping shopping, List<Shopping> shoppingList, String buyerAccount, String product) {
 		super();

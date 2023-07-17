@@ -3,6 +3,7 @@ package com.example.fruit_grammy_java.impl;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.regex.Pattern;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,9 +11,14 @@ import org.springframework.util.StringUtils;
 
 import com.example.fruit_grammy_java.entity.Order;
 import com.example.fruit_grammy_java.entity.OrderContent;
+import com.example.fruit_grammy_java.entity.Product;
+import com.example.fruit_grammy_java.entity.Shopping;
 import com.example.fruit_grammy_java.ifs.OrderService;
 import com.example.fruit_grammy_java.repository.OrderContentDao;
 import com.example.fruit_grammy_java.repository.OrderDao;
+import com.example.fruit_grammy_java.repository.ProductDao;
+import com.example.fruit_grammy_java.repository.ShoppingContentDao;
+import com.example.fruit_grammy_java.repository.ShoppingDao;
 import com.example.fruit_grammy_java.vo.OrderContentRequest;
 import com.example.fruit_grammy_java.vo.OrderRequest;
 import com.example.fruit_grammy_java.vo.OrderResponse;
@@ -24,6 +30,12 @@ public class OrderServiceImpl implements OrderService{
 	private OrderContentDao contentDao;
 	@Autowired
 	private OrderDao orderDao;
+	@Autowired
+	private ProductDao productDao;
+	@Autowired
+	private ShoppingContentDao shoppingContentDao;
+	@Autowired
+	private ShoppingDao shoppingDao;
 //===========================新增訂單=================================
 	public OrderResponse addOrder(OrderRequest orderRequest) {
 		// 從前端取得訂單資訊
@@ -31,24 +43,48 @@ public class OrderServiceImpl implements OrderService{
 		// 從前端取得訂單內容
 		List<OrderContent> contentList = orderRequest.getContentList();
 		
-		// 建立新的 List 存放內容的 num_id
+		// 建立新的 List 存放訂單內容的 num_id
 		List <String> idList = new ArrayList<>();  
 		for(OrderContent item : contentList) {
-			// 防呆，不能沒有商品明或是購買數量
+			// 防呆，不能沒有商品名稱或是購買數量
 			if(!StringUtils.hasText(item.getItem_name()) || item.getItem_number() <= 0 ) {
 				return new OrderResponse("格式錯誤");
 			}
 			// 等待商品資料庫入駐，要補上若無商品或庫存不夠的防呆
+			Optional<Product> product = productDao.findById(item.getItem_id());			
+			Product productGet = product.get();
+			
+			// 扣除庫存(應移到訂單改成已出貨時)
+			productGet.setNumber(productGet.getNumber()-item.getItem_number());
+			
 			// 將 num_id 集結成 List
 			idList.add(item.getNum_id());
 			
 		}
+		String phoneCheck = "[0][9]\\d{8}";
+		if(!Pattern.matches(phoneCheck, order.getBuyer_phone())) {
+			return new OrderResponse("請輸入正確手機號碼格式");
+		}
+//		if(order.getSent_address())
 		// 使用 Join 的方式把訂單內容的 num_id 加入訂單資訊方便管理
 		order.setContent(String.join(",", idList));
 		
 		orderDao.save(order);
 		contentDao.saveAll(contentList);
 		
+		// 轉換成訂單成功時同時刪除使用者購物車
+		String buyerAccount = order.getBuyer_account();
+		Optional<Shopping> buyerShoppingCar = shoppingDao.findById(buyerAccount);
+		Shopping shoppingCar = buyerShoppingCar.get();
+		// 將購物車內容逐一清除
+		for(String item:shoppingCar.getBuyerContent().split(",")) {
+			if(!shoppingContentDao.existsById(item)) {
+				return new OrderResponse("找不到資料");
+			}
+			shoppingContentDao.deleteById(item);
+			
+		}
+		shoppingDao.deleteById(buyerAccount);
 		return new OrderResponse(order,"訂單新增成功");
 	}
 	
@@ -76,10 +112,12 @@ public class OrderServiceImpl implements OrderService{
 		String id = orderRequest.getOrder_id();
 		Optional<Order> orderOp = orderDao.findById(id);
 		Order orderGet = orderOp.get();
+		// 訂單狀態為"未出貨"
 		if(orderGet.getOrder_condition().equals("未出貨")){
-			
+		// 取得訂單的訂單內容並做 forEach 迴圈
 		String content = orderGet.getContent();		
 		for(String item: content.split(",")) {
+			//取的訂單內容中每筆的詳細資料
 			Optional<OrderContent> detail = contentDao.findById(item);
 			OrderContent detailGet = detail.get();
 			if(detailGet.getItem_condition().equals("未出貨")) {

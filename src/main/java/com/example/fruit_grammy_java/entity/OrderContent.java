@@ -8,35 +8,40 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "ordercontent")
 public class OrderContent {
-	
+
 	// 訂單編碼
 	@Id
 	@Column(name = "num_id")
 	private String num_id;
-	
+
 	// 產品名稱
 	@Column(name = "item_name")
 	private String item_name;
-	
+
+	// 產品名稱
+	@Column(name = "item_id")
+	private String item_id;
+
 	// 數量
 	@Column(name = "item_number")
 	private int item_number;
-	
+
 	// 單價
 	@Column(name = "item_price")
 	private int item_price;
-	
+
 	// 總價格
 	@Column(name = "total_price")
 	private int total_price;
 
-	//賣家
+	// 賣家
 	@Column(name = "seller_account")
 	private String seller_account;
 
+	// 商品是否出貨
 	@Column(name = "item_condition")
 	private String item_condition;
-	
+
 	public OrderContent() {
 
 	}
@@ -55,6 +60,14 @@ public class OrderContent {
 
 	public void setItem_name(String item_name) {
 		this.item_name = item_name;
+	}
+
+	public String getItem_id() {
+		return item_id;
+	}
+
+	public void setItem_id(String item_id) {
+		this.item_id = item_id;
 	}
 
 	public int getItem_number() {
@@ -97,5 +110,4 @@ public class OrderContent {
 		this.item_condition = item_condition;
 	}
 
-	
 }
